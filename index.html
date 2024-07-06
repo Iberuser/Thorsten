@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thorsten Umfragen</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+</head>
+    <body>
+        <nav id="nav">
+            <a id="overviewTabButton" onclick="onTabSelect('overviewTab')">👀 Umfrageansicht</a>
+            <a id="statisticsTabButton" onclick="onTabSelect('statisticsTab')">📊 Umfragestatistiken</a>
+            <a id="enterSurveyTabButton" onclick="onTabSelect('enterSurveyTab')">✒️ Umfrage eintragen</a>
+            <a id="createSurveyTabButton" onclick="onTabSelect('createSurveyTab')">✨ Umfrage erstellen (Ohne AI)</a>
+        </nav>
+
+        <div id="overviewTab" class="tab">
+            <div id="greetingScreen" class="screen visible">
+                <h3 style="color: orangered; margin-bottom: 120px;">Thorstens Umfragearchiv 0.2 --- Die umfragen hier sind erstmal nur zur demo --- Vorschläge sind willkommen</h3>
+                <h3>Willkommen in Thorstens Umfragearchiv (nicht von Thorsten)</h3>
+                <p>
+                    <br>
+                    Bisher sind in der Datei nur einige Umfragen zur demo gespeichert. <br>
+                    Das design der Seite ist ebenso nicht vollständig, besonders die Auflisten der Personen - Vorschläge sind willkommen. <br>
+                    PS: An die Freundinnen und Freunde des gelungenen HTMLs: Schaut um Gottes willen nicht in den Code <br>
+                    <br>
+                    Um zu beginnen klicken auf den Knopf unten und wähle die thorsten.json Datei aus. <br>
+                    Solltest du nicht wissen wer .json ist, wähle die thorsten Datei OHNE das Symbol von deinem Browser drauf. <br>
+                    (wahrscheinlich sieht sie dann aus wie eine Textdatei) <br>
+                    <br>
+                </p>
+                <div id="fileSelector">
+                    <button id="fileButton" onclick="document.getElementById('fileInput').click()">📑 Datei wählen</button>
+                    <input type="file" id="fileInput" name="fileInput" accept=".json" style="display: none" onchange="onFileSelect()"> <!-- Invisible input to redirect button -->
+                    <p id="fileLabel">Wähle die <b>thorsten.json</b> Datei aus</p>
+                </div>
+            </div>
+
+            <div id="mainScreen" class="screen">
+                <h2 style="color: orangered;">Die umfragen hier sind erstmal nur zur demo</h2>
+                <div id="output"></div>
+            </div>
+        </div>
+
+        <div id="statisticsTab" class="tab">
+            <h2 style="color: orangered; text-align: center; width: 100%;">Der Statistik-Tab ist IN ARBEIT</h2>
+        </div>
+
+
+        <!-- Das Popup Formular -->
+        <div id="enterSurveyTab" class="tab">
+            <h3 style="margin: 40px auto;">Hier kannst du vergangene Umfragen mit Ergebnissen eintragen und speichern</h3>
+            <div id="s-surveyForm">
+                <table>
+                    <tr>
+                        <td> <label>Frage</label> </td>
+                        <td> <input type="text" id="s-question"> </td>
+                    </tr>
+                    <tr>
+                        <td> <label>Max. Auswahlen</label> </td>
+                        <td> <div style="display: flex; justify-content: space-between;">
+                            <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="s-maxAnswersInput" class="maxAnswersInput" usage="s">
+                            <div class="input rangeContainer">
+                                <span>1</span>
+                                <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="s-maxAnswersRange" class="maxAnswersRange" usage="s">
+                                <span>6</span>
+                            </div>
+                        </div> </td>
+                    </tr>
+                    <tr>
+                        <td> <label>Datum & Uhreit</label> </td>
+                        <td> <input type="datetime-local" onclick="this.showPicker()"> </td>
+                    </tr>
+                    <tr>
+                        <td> <label>Antwortmöglichkeiten</label> </td>
+                        <td id="s-dynamicAnswerContainer"></td>
+                    </tr>
+                    <tr>
+                        <td> <button onclick="onSurveyFormSubmit()" id="s-saveSurveyButton">Umfrage Speichern</button> </td>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>
+
+        <div id="createSurveyTab" class="tab">
+            <h3 style="margin: 40px auto;">Hier kannst du eine Umfrage fürs Autodach erstellen</h3>
+            <div id="c-surveyForm">
+                <table>
+                    <tr>
+                        <td> <label>Frage</label> </td>
+                        <td> <input type="text" id="c-question"> </td>
+                    </tr>
+                    <tr>
+                        <td> <label for="c-max-selections max-selections">Max. Auswahlen</label> </td>
+                        <td> <div style="display: flex; justify-content: space-between;">
+                            <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="c-maxAnswersInput" class="maxAnswersInput" usage="c">
+                            <div class="input rangeContainer">
+                                <span>1</span>
+                                <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="c-maxAnswersRange" class="maxAnswersRange" usage="c">
+                                <span>6</span>
+                            </div>
+                        </div> </td>
+                    </tr>
+                    <tr>
+                        <td> <label>Antwortmöglichkeiten</label> </td>
+                        <td id="c-dynamicAnswerContainer"></td>
+                    </tr>
+                    <tr>
+                        <td> <button onclick="onSurveyFormSubmit()" id="c-saveSurveyButton">Umfrage Speichern</button> </td>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>
+>
+        <emoji-picker id="emojiPicker" class="dark"></emoji-picker>
+        
+        <template id="s-answerTemplate">
+            <div class="s-input-answer input-answer" style="justify-content: space-between; display: flex;">
+                <button onclick="openEmoteSelector(this)">😀</button>
+                <input type="text" oninput="onAnswerInput(this)" usage="s">
+                <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
+            </div>
+        </template>
+        <template id="c-answerTemplate">
+            <div class="c-input-answer input-answer" style="justify-content: space-between; display: flex;">
+                <button onclick="openEmoteSelector(this)">😀</button>
+                <input type="text" oninput="onAnswerInput(this)" usage="c">
+                <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
+            </div>
+        </template>
+    </body>
+</html>
+
+
+
+<script>
+//speichervorgang:
+//nutzer gibt daten ein, inputs werden dynamisch genereiert
+//bei knopfdruck onklick für speichern ausführen
+//alle vorhandenen inputs auslesen und daten in classe oder ass. array speichern
+//aus classe oder ass. array in datei fetchen
+
+
+//
+// Code for Dynamic Answer Container - works for saving and creation forms
+//
+const s_dynamicAnswerContainer = document.getElementById('s-dynamicAnswerContainer');
+const c_dynamicAnswerContainer = document.getElementById('c-dynamicAnswerContainer');
+const s_answerTemplate = document.getElementById("s-answerTemplate");
+const c_answerTemplate = document.getElementById("c-answerTemplate");
+
+// maybe i should just remove this function
+function insertTemlate(parent, template) {
+    const newContainer = template.content.cloneNode(true);
+    parent.appendChild(newContainer);
+}
+
+function onAnswerInput(inputField) {
+    const isInputFieldEmpty = inputField.value.trim() === '';
+    
+    // check if situation didnt change
+    if (isInputFieldEmpty && inputField.wasEmpty === true) return;
+    else if (!isInputFieldEmpty && inputField.wasEmpty === false) return;
+    inputField.wasEmpty = isInputFieldEmpty;
+
+    // find out if s or c input
+    const inputPrefix = inputField.getAttribute("usage");
+
+    const containers = document.getElementsByClassName(inputPrefix + '-input-answer');
+    const lastContainer = containers[containers.length - 1];
+    const lastInput = lastContainer.querySelector('input');
+
+    // Wenn der Benutzer im letzten Eingabefeld etwas eingibt
+    if (lastInput === inputField && !isInputFieldEmpty) {
+        insertTemlate( //add new container
+            document.getElementById(inputPrefix + '-dynamicAnswerContainer'), 
+            document.getElementById(inputPrefix + "-answerTemplate")
+        ); 
+        lastContainer.lastElementChild.removeAttribute("disabled"); //enable delete button
+    }
+    
+    //bei mehr als einem feld überprüfung zur entfernung des letzten
+    if (containers.length < 2) return;
+    const secondlastContainer = containers[containers.length - 2];
+    const secondlastInput = secondlastContainer.querySelector('input');
+
+    // Überprüfen, ob das vorletzte Eingabefeld leer ist und lösche letztes
+    if (secondlastInput === inputField && isInputFieldEmpty) {   
+        lastContainer.remove(); //if input emtpy remove conatiner
+        secondlastContainer.lastElementChild.setAttribute("disabled", "true"); //disabled delete button
+    }
+}
+
+function deleteAnswer(button) {
+    button.parentElement.remove();
+}
+
+insertTemlate(s_dynamicAnswerContainer, s_answerTemplate);
+insertTemlate(c_dynamicAnswerContainer, c_answerTemplate);
+
+//
+// Code For max-answers range slider
+//
+const s_maxAnswersRange = document.getElementById("s-maxAnswersRange");
+const s_maxAnswersInput = document.getElementById("s-maxAnswersInput");
+const c_maxAnswersRange = document.getElementById("d-maxAnswersRange");
+const c_maxAnswersInput = document.getElementById("d-maxAnswersInput");
+
+function updateSliderProgress(isChangeFromSlider, isFromSaveMenu) {
+    if (isFromSaveMenu) {
+        if (isChangeFromSlider) {
+            maxAnswersInput.value = maxAnswersRange.value;
+        }
+        else {
+            maxAnswersRange.value = maxAnswersInput.value;
+        }
+        
+        let sliderProgress = (maxAnswersRange.value - maxAnswersRange.min) / (maxAnswersRange.max - maxAnswersRange.min) * 100;
+        maxAnswersRange.style.setProperty('--progress', `${sliderProgress}%`);
+    }
+    else {
+        if (isChangeFromSlider) {
+            maxAnswersInput.value = maxAnswersRange.value;
+        }
+        else {
+            maxAnswersRange.value = maxAnswersInput.value;
+        }
+        
+        let sliderProgress = (maxAnswersRange.value - maxAnswersRange.min) / (maxAnswersRange.max - maxAnswersRange.min) * 100;
+        maxAnswersRange.style.setProperty('--progress', `${sliderProgress}%`);
+    }    
+}
+updateSliderProgress(); // Initialer Aufruf, um den Anfangszustand zu setzen
+
+
+//
+// Code for Emoji-Picker
+//
+const emojiPicker = document.getElementById('emojiPicker');
+
+emojiPicker.addEventListener('emoji-click', (event) => {
+    const emoji = event.detail.unicode;
+    emojiPicker.clickedButton.textContent = emoji;
+    emojiPicker.classList.remove("visible");
+});
+
+function openEmoteSelector(clickedButton) {
+    if (emojiPicker.clickedButton == clickedButton) {
+        emojiPicker.classList.toggle("visible");
+    }
+    else {
+        emojiPicker.classList.add("visible");
+        emojiPicker.clickedButton = clickedButton;
+        clickedButton.textContent = "😀";
+        
+        const rect = clickedButton.getBoundingClientRect();
+        emojiPicker.style.left = rect.left + "px";
+        emojiPicker.style.top = rect.bottom + "px";
+    }
+    
+}
+
+document.body.addEventListener("keydown", function (event) {
+    if (event.keyCode == 27 && emojiPicker.classList.contains("visible")) {
+        emojiPicker.classList.remove("visible");
+    }
+});
+
+
+//
+// Code der noch keinen Namen hat
+//
+let page = "overview";
+
+function loadMainScreen() {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const jsonText = event.target.result;
+        const jsonDaten = JSON.parse(jsonText);
+        document.getElementById('output').innerHTML = jsonToHTML(jsonDaten);
+    };
+    reader.readAsText(file);
+
+    document.getElementById('mainScreen').classList.toggle("visible"); // Hinzufügen der CSS-Klasse 'hidden'
+}
+
+// Funktion zum Generieren von HTML aus JSON
+function jsonToHTML(jsonData) {
+    let htmlAusgabe = "";
+
+    for (let i = 0; i < jsonData.length; i++) {
+        let survey = jsonData[i];
+
+        htmlAusgabe += '<div class="survey">';
+        htmlAusgabe += `
+            <div>
+                <h3>${survey.question}</h3>
+                <p>Umfrage vom: <strong>${survey.date}</strong></p>
+            </div>
+        `;
+
+        if (survey["max-selections"] == 1) {
+            htmlAusgabe += '<p>Es ist <strong>eine Auswahl</strong> möglich</p>';
+        }
+        else {
+            htmlAusgabe += `<p>Es sind <strong>${survey["max-selections"]} auswahlen</strong> möglich</p>`;
+        }
+        
+        htmlAusgabe += '<ul>';
+        for (let x = 0; x < survey.answers.length; x++) {
+            let answer = survey.answers[x];
+            htmlAusgabe += `
+                <li>
+                    ${answer.symbol}  ${answer.text} <br>
+                    <span style="padding-left: 28px;">└ <b>${answer.persons.length}</b> Stimmen: ${answer.persons}</span>
+                </li>
+                `;
+        }
+        htmlAusgabe += '</ul></div>';
+    }
+
+    return htmlAusgabe + "<br><br><br><br><br>";
+}
+
+
+
+function openSurveyForm() {
+    document.getElementById('popup-form').classList.toggle("visible");
+}
+
+function onSurveyFormSubmit() {
+    alert('lol\nDu würdest nicht drücken Florian');
+}
+
+
+function onFileSelect() {
+    document.getElementById("fileButton").innerHTML = "Neu wählen 📑";
+    document.getElementById("fileLabel").innerHTML = "<b>" + document.getElementById("fileInput").files[0].name + "</b> ist ausgewählt";
+
+    document.getElementById("fileSelector").classList.toggle("corner");
+    document.body.append(document.getElementById("fileSelector"));
+    document.getElementById("greetingScreen").style.display = "none";
+    loadMainScreen();
+}
+
+
+
+function onTabSelect(selectedTabId) {
+    document.querySelectorAll('.tab').forEach(element => {
+        element.classList.remove("visible");
+    });
+    document.getElementById(selectedTabId).classList.add("visible");
+
+    document.getElementById("nav").childNodes.forEach(element => {
+        if (element.nodeType === Node.ELEMENT_NODE) {
+            element.classList.remove("selected");
+        }   
+    });
+    document.getElementById(selectedTabId + "Button").classList.add("selected");
+}
+
+
+onTabSelect("overviewTab");
+</script>
+
+
+
+<style>
+#saveSurveyButton {
+    transition: opacity 0.5s;
+}
+#saveSurveyButton:hover {
+    cursor: wait;
+    opacity: 0;
+}
+
+.tab.visible, .screen.visible {
+    display: block;
+}
+.tab, .screen {
+    display: none;
+}
+nav > a.selected {
+    background:
+        linear-gradient(
+          #0077ff00, 
+          #2189ff4d
+        )
+}
+
+
+.input-answer > button {
+    font-size: 24px;
+    padding: 0;
+}
+.input-answer > input {
+    margin: auto 5px;
+}
+.input-answer > :last-child:hover:not(:disabled) {
+    transform: scale(1.0);
+    background-color: #8b1a1a;
+    box-shadow: #5a0808 0 0 5px;
+}
+
+#emojiPicker {
+    display: none;
+    position: absolute;
+    z-index: 20;
+}
+#emojiPicker.visible {
+    display: block;
+}
+    
+
+input {
+    display: inline-block;
+}
+.input-answer {
+    margin: 5px 0;
+}
+
+.survey {
+    border-bottom: 2px solid gray;
+    margin-bottom: 30px;
+}
+.survey > p {
+    display: inline-block;
+}
+.survey > :first-child {
+    display: flex;
+    justify-content: space-between;
+}
+.survey > :first-child > p {
+    color: #AAAAAA;
+}
+
+.survey > p {
+    margin: auto;
+}
+.survey ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+.survey li {
+    margin: 5px auto;
+}
+.survey li span {
+    color: #aaaaaa;
+}
+
+#greetingScreen {
+    margin: 100px auto 0 auto; /* Horizontal zentrieren */
+    text-align: center; /* Zentriert den Inhalt horizontal */
+}
+
+#fileSelector {
+    position: relative;
+    text-align: center;
+}
+#fileSelector.corner {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+#fileButton, #newSurveyButton {
+  box-shadow: 0 0 5px gray;
+  font-size: large;
+}
+
+#mainScreen.visible {
+    animation: slideIn 0.3s ease-out;
+}
+
+#newSurveyButton {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+
+/* CSS für das Popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-color: #2b2f30c4;    
+    padding: 20px;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 10px #0000001a;
+    z-index: 10;
+    border-radius: 8px;
+    animation: popupFadeOut 1s forwards;
+}
+.popup.visible {
+    display: block;
+    animation: popupFadeIn 1s forwards;
+}
+
+nav {
+    display: flex;
+    text-align: center;
+    border-bottom: #7289DA 1px solid;
+    font-size: large;
+}
+nav > a {
+    flex-grow: 1;
+    cursor: pointer;
+    padding: 16px 0;
+}
+nav > a:hover {
+    background:
+        linear-gradient(
+          #0077ff00, 
+          #0077ff66
+        )
+}
+
+td:first-child {
+    width: 1%;
+    white-space: nowrap;
+    padding-right: 40px;
+}
+
+
+/* Body */
+body {
+    background:
+        linear-gradient(
+          #181818e6, 
+          #181818e6
+        ),
+        url('data:image/webp;base64,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LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6R0lNUD0iaHR0cDovL3d3dy5naW1wLm9yZy94bXAvIiB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJnaW1wOmRvY2lkOmdpbXA6MzBjMGI5YTctYTVhMi00ODM4LTkxMDAtMzliMDFlMmQzY2FjIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmQ2MWUyZjhhLTQwMjUtNDk5NS1iMTNmLTdhMGU1YTJlZGRhNSIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjdjYjI4ODk0LTU0MjMtNGE3ZS04NDRiLTI3ZTM0ZGExMGZiZiIgZGM6Rm9ybWF0PSJpbWFnZS93ZWJwIiBHSU1QOkFQST0iMi4wIiBHSU1QOlBsYXRmb3JtPSJXaW5kb3dzIiBHSU1QOlRpbWVTdGFtcD0iMTcxODQwMzg5Nzk2MjcwOSIgR0lNUDpWZXJzaW9uPSIyLjEwLjM0IiB0aWZmOk9yaWVudGF0aW9uPSIxIiB4bXA6Q3JlYXRvclRvb2w9IkdJTVAgMi4xMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyNDowNjoxNVQwMDoyNDo0NiswMjowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjQ6MDY6MTVUMDA6MjQ6NDYrMDI6MDAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6Y2hhbmdlZD0iLyIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDplNTk3M2NkNi1lNjg4LTRhMmEtYjU4Zi05ZTA1ZjgxMDljYTkiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkdpbXAgMi4xMCAoV2luZG93cykiIHN0RXZ0OndoZW49IjIwMjQtMDYtMTVUMDA6MjQ6NTciLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDw/eHBhY2tldCBlbmQ9InciPz4=');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+
+    color: #ebebeb; 
+    font-family: 'Roboto', sans-serif; 
+}
+
+/* Links */
+a {
+    color: #7289DA;
+    text-decoration: none; 
+}
+a:hover {
+    text-decoration: underline; 
+}
+
+/* Buttons */
+button, .button {
+    background-color: #7289DA;
+    color: #FFFFFF; 
+    border: none; 
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer; 
+}
+button:hover, .button:hover {
+    background-color: #677BC4; 
+}
+button:disabled, .button:disabled {
+    background-color: #73747a; 
+    color: #b8b8b8; 
+    cursor: default;
+    opacity: 0.7;
+}
+
+#enterSurveyTab, #createSurveyTab {
+    width: 70%;
+    margin: 0 auto;
+}
+
+
+/* Formularelemente */
+input,
+.input {
+    background-color: #40444B; 
+    color: #FFFFFF; 
+    border-radius: 3px; 
+    width: 100%;
+    box-sizing: border-box;
+    font-size: medium;
+    font-family: sans-serif;
+}
+input:not([type="range"]),
+.input {
+    padding: 8px; 
+    border: 1px solid #7289DA; 
+}
+input:disabled,
+.input:disabled {
+    background-color: #393b3f; 
+    color: #a3a3a3; 
+    border: 1px solid #7c839b; 
+    opacity: 0.7;
+}
+input:focus,
+.input:focus {
+    outline: 1px solid #486270;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator { /*modify calendar icon to fit style*/
+   filter: invert();
+   transform: scale(1.2);
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+/* Tabellen */
+table {
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+th, td {
+    padding: 6px; /* Innenabstand der Zellen */
+    text-align: left; /* Linksbündige Ausrichtung des Textes */
+}
+
+
+input[type=range] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    overflow: hidden;
+    width: 100%;
+    height: 12px;
+    cursor: pointer;
+    background: #7289DA;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #7289DA 0% var(--progress), #ddd var(--progress) 100%);
+}   
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: #486270 1px solid;
+    height: 28px;
+    width: 10px;
+    border-radius: 5px;
+    background: #5367ad;
+    margin-top: -8px;
+}
+.maxAnswersInput {
+    width: 2em; 
+    margin-right: 16px
+}
+.rangeContainer {
+    display: flex;
+}
+
+
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes slideIn {
+    0% {top: 200px;}
+    100% {top: 0;}
+}
+
+@keyframes popupFadeIn {
+    0% {opacity: 0;}
+    50% {opacity: 1;}
+    100% {opacity: 1;display: block;}
+}
+@keyframes popupFadeOut {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 0;display: none;}
+}
+
+</style>
+
