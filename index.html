@@ -1,112 +1,114 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thorstens Umfragen</title>
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <link rel="stylesheet" href="style.css">
-    
 </head>
-    <body>
-        <nav id="nav">
-            <a id="overviewTabButton" onclick="onTabSelect('overviewTab')">👀 Umfrageansicht</a>
-            <a id="statisticsTabButton" onclick="onTabSelect('statisticsTab')">📊 Umfragestatistiken</a>
-            <a id="enterSurveyTabButton" onclick="onTabSelect('enterSurveyTab')">✒️ Umfrage eintragen</a>
-            <a id="createSurveyTabButton" onclick="onTabSelect('createSurveyTab')">✨ Umfrage erstellen (Ohne AI)</a>
-        </nav>
 
-        <div id="overviewTab" class="tab" src="tabs/overview.html"></div>
+<body>
+    <nav id="nav">
+        <a id="overviewTabButton" onclick="onTabSelect('overviewTab')">👀 Umfrageansicht</a>
+        <a id="statisticsTabButton" onclick="onTabSelect('statisticsTab')">📊 Umfragestatistiken</a>
+        <a id="enterSurveyTabButton" onclick="onTabSelect('enterSurveyTab')">✒️ Umfrage eintragen</a>
+        <a id="createSurveyTabButton" onclick="onTabSelect('createSurveyTab')">✨ Umfrage erstellen (Ohne AI)</a>
+    </nav>
 
-        <div id="statisticsTab" class="tab">
-            <h2 style="color: orangered; text-align: center; width: 100%;">Der Statistik-Tab ist IN ARBEIT</h2>
+    <div id="overviewTab" class="tab" src="tabs/overview.html"></div>
+
+    <div id="statisticsTab" class="tab">
+        <h2 style="color: orangered; text-align: center; width: 100%;">Der Statistik-Tab ist IN ARBEIT</h2>
+    </div>
+
+
+    <!-- Das Popup Formular -->
+    <div id="enterSurveyTab" class="tab">
+        <h3 style="margin: 40px auto;">Hier kannst du vergangene Umfragen mit Ergebnissen eintragen und speichern</h3>
+        <div id="s-surveyForm">
+            <table>
+                <tr>
+                    <td> <label>Frage</label> </td>
+                    <td> <input type="text" id="s-question"> </td>
+                </tr>
+                <tr>
+                    <td> <label>Max. Auswahlen</label> </td>
+                    <td> <div style="display: flex; justify-content: space-between;">
+                        <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="s-maxAnswersInput" class="maxAnswersInput" usage="s">
+                        <div class="input rangeContainer">
+                            <span>1</span>
+                            <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="s-maxAnswersRange" class="maxAnswersRange" usage="s">
+                            <span>6</span>
+                        </div>
+                    </div> </td>
+                </tr>
+                <tr>
+                    <td> <label>Datum & Uhreit</label> </td>
+                    <td> <input type="datetime-local" onclick="this.showPicker()"> </td>
+                </tr>
+                <tr>
+                    <td> <label>Antwortmöglichkeiten</label> </td>
+                    <td id="s-dynamicAnswerContainer"></td>
+                </tr>
+                <tr>
+                    <td> <button onclick="onSurveyFormSubmit()" id="s-saveSurveyButton">Umfrage Speichern</button> </td>
+                </tr>
+            </table>
+            
         </div>
+    </div>
 
-
-        <!-- Das Popup Formular -->
-        <div id="enterSurveyTab" class="tab">
-            <h3 style="margin: 40px auto;">Hier kannst du vergangene Umfragen mit Ergebnissen eintragen und speichern</h3>
-            <div id="s-surveyForm">
-                <table>
-                    <tr>
-                        <td> <label>Frage</label> </td>
-                        <td> <input type="text" id="s-question"> </td>
-                    </tr>
-                    <tr>
-                        <td> <label>Max. Auswahlen</label> </td>
-                        <td> <div style="display: flex; justify-content: space-between;">
-                            <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="s-maxAnswersInput" class="maxAnswersInput" usage="s">
-                            <div class="input rangeContainer">
-                                <span>1</span>
-                                <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="s-maxAnswersRange" class="maxAnswersRange" usage="s">
-                                <span>6</span>
-                            </div>
-                        </div> </td>
-                    </tr>
-                    <tr>
-                        <td> <label>Datum & Uhreit</label> </td>
-                        <td> <input type="datetime-local" onclick="this.showPicker()"> </td>
-                    </tr>
-                    <tr>
-                        <td> <label>Antwortmöglichkeiten</label> </td>
-                        <td id="s-dynamicAnswerContainer"></td>
-                    </tr>
-                    <tr>
-                        <td> <button onclick="onSurveyFormSubmit()" id="s-saveSurveyButton">Umfrage Speichern</button> </td>
-                    </tr>
-                </table>
-                
-            </div>
+    <div id="createSurveyTab" class="tab">
+        <h3 style="margin: 40px auto;">Hier kannst du eine Umfrage fürs Autodach erstellen</h3>
+        <div id="c-surveyForm">
+            <table>
+                <tr>
+                    <td> <label>Frage</label> </td>
+                    <td> <input type="text" id="c-question"> </td>
+                </tr>
+                <tr>
+                    <td> <label for="c-max-selections max-selections">Max. Auswahlen</label> </td>
+                    <td> <div style="display: flex; justify-content: space-between;">
+                        <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="c-maxAnswersInput" class="maxAnswersInput" usage="c">
+                        <div class="input rangeContainer">
+                            <span>1</span>
+                            <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="c-maxAnswersRange" class="maxAnswersRange" usage="c">
+                            <span>6</span>
+                        </div>
+                    </div> </td>
+                </tr>
+                <tr>
+                    <td> <label>Antwortmöglichkeiten</label> </td>
+                    <td id="c-dynamicAnswerContainer"></td>
+                </tr>
+                <tr>
+                    <td> <button onclick="onSurveyFormSubmit()" id="c-saveSurveyButton">Umfrage Speichern</button> </td>
+                </tr>
+            </table>
+            
         </div>
+    </div>
 
-        <div id="createSurveyTab" class="tab">
-            <h3 style="margin: 40px auto;">Hier kannst du eine Umfrage fürs Autodach erstellen</h3>
-            <div id="c-surveyForm">
-                <table>
-                    <tr>
-                        <td> <label>Frage</label> </td>
-                        <td> <input type="text" id="c-question"> </td>
-                    </tr>
-                    <tr>
-                        <td> <label for="c-max-selections max-selections">Max. Auswahlen</label> </td>
-                        <td> <div style="display: flex; justify-content: space-between;">
-                            <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="c-maxAnswersInput" class="maxAnswersInput" usage="c">
-                            <div class="input rangeContainer">
-                                <span>1</span>
-                                <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="c-maxAnswersRange" class="maxAnswersRange" usage="c">
-                                <span>6</span>
-                            </div>
-                        </div> </td>
-                    </tr>
-                    <tr>
-                        <td> <label>Antwortmöglichkeiten</label> </td>
-                        <td id="c-dynamicAnswerContainer"></td>
-                    </tr>
-                    <tr>
-                        <td> <button onclick="onSurveyFormSubmit()" id="c-saveSurveyButton">Umfrage Speichern</button> </td>
-                    </tr>
-                </table>
-                
-            </div>
+    <emoji-picker id="emojiPicker" class="dark"></emoji-picker>
+    
+    <template id="s-answerTemplate">
+        <div class="s-input-answer input-answer" style="justify-content: space-between; display: flex;">
+            <button onclick="openEmoteSelector(this)">😀</button>
+            <input type="text" oninput="onAnswerInput(this)" usage="s">
+            <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
         </div>
+    </template>
+    <template id="c-answerTemplate">
+        <div class="c-input-answer input-answer" style="justify-content: space-between; display: flex;">
+            <button onclick="openEmoteSelector(this)">😀</button>
+            <input type="text" oninput="onAnswerInput(this)" usage="c">
+            <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
+        </div>
+    </template>
+</body>
 
-        <emoji-picker id="emojiPicker" class="dark"></emoji-picker>
-        
-        <template id="s-answerTemplate">
-            <div class="s-input-answer input-answer" style="justify-content: space-between; display: flex;">
-                <button onclick="openEmoteSelector(this)">😀</button>
-                <input type="text" oninput="onAnswerInput(this)" usage="s">
-                <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
-            </div>
-        </template>
-        <template id="c-answerTemplate">
-            <div class="c-input-answer input-answer" style="justify-content: space-between; display: flex;">
-                <button onclick="openEmoteSelector(this)">😀</button>
-                <input type="text" oninput="onAnswerInput(this)" usage="c">
-                <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
-            </div>
-        </template>
-    </body>
 </html>
 
 
