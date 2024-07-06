@@ -1,0 +1,234 @@
+[
+    {
+        "question": "Meinung zu unserem lieblings (milchigen) Milchmann?",
+        "max-selections": 1,
+        "date": "10.03.2024 00:47",
+        "answers": [
+            {
+                "text": "Top Typ",
+                "symbol": "👍",
+                "persons": ["geiche666", "salamanderfrau", "scybouns"]
+            },
+            {
+                "text": "Hmmmmm.... Milch..... Milch...... Milch........... Milch........ (Je öfter ich das Wort schreibe desso komischer ist es)",
+                "symbol": "🥛",
+                "persons": ["lordturtle08", "mra_tov"]
+            },
+            {
+                "text": "Ab ins Bett mit dir",
+                "symbol": "🔞",
+                "persons": []
+            },
+            {
+                "text": "Wann kommt meine Milchbestellung? (ich warte seit 2 Jahren und 6 Monaten darauf (ich verdurste schon))",
+                "symbol": "❓",
+                "persons": []
+            },
+            {
+                "text": "Hallo ich bin MarJuana und finde unser (milchigen) Milchmann ist 'ne geile Milchschnitte",
+                "symbol": "🧍",
+                "persons": []
+            }
+        ]
+    },
+    {
+        "question": "Gute Nacht",
+        "max-selections": 1,
+        "date": "10.03.2024 02:00",
+        "answers": [
+            {
+                "text": "Gute Nacht",
+                "symbol": "😴",
+                "persons": ["geiche666", "iberrus", "schlossi2002"]
+            },
+            {
+                "text": "Nö (jetzt wird mit 1 Kg Taurin und 1,5 Kg Koffein durchgeballert)",
+                "symbol": "⚡",
+                "persons": ["luk_h", "lordturtle08", "salamanderfrau", "scybouns"]
+            },
+            {
+                "text": "Fresse",
+                "symbol": "🖕",
+                "persons": ["mra_tov"]
+            },
+            {
+                "text": "Hallo ich bin MarJuana und wünsche dir ein guten Schlaf",
+                "symbol": "🧍",
+                "persons": ["marjuuuu"]
+            }
+        ]
+    },
+    {
+        "question": "Glaubt ihr Toasty wird zur Gamescom erscheinen?",
+        "max-selections": 1,
+        "date": "11.03.2024 01:22",
+        "answers": [
+            {
+                "text": "Klaro",
+                "symbol": "🤙",
+                "persons": ["lordturtle08", "salamanderfrau", "mra_tov", "sandro121212"]
+            },
+            {
+                "text": "Ne niemals",
+                "symbol": "❌",
+                "persons": []
+            },
+            {
+                "text": "Wer?",
+                "symbol": "❓",
+                "persons": ["scybouns", "schlossi2002"]
+            },
+            {
+                "text": "Bitte nicht (ich kann dieses etwas nicht ausstehen)",
+                "symbol": "🤢",
+                "persons": []
+            },
+            {
+                "text": "Ist mir egal, Hauptsache Gerhard (der Bauer) erscheint",
+                "symbol": "🧑‍🌾",
+                "persons": ["luk_h"]
+            },
+            {
+                "text": "Hallo ich bin MarJuana und würde mit ihnen gerne über 5G-Strahlung reden und warum es Lebensgefährlich ist!!!",
+                "symbol": "🧍",
+                "persons": ["marjuuuu"]
+            }
+        ]
+    },
+    {
+        "question": "Was ist die schlimmste Webseite, die am besten für immer gelöscht werden sollte?",
+        "max-selections": 1,
+        "date": " 11.03.2024 01:42",
+        "answers": [
+            {
+                "text": "YouTube",
+                "symbol": "▶️",
+                "persons": []
+            },
+            {
+                "text": "Pornhub",
+                "symbol": "🟧",
+                "persons": []
+            },
+            {
+                "text": "4chan (sind wir ehrlich eigentlich müsste ich nicht mehr Antworten auflisten)",
+                "symbol": "🍀",
+                "persons": ["luk_h", "lordturtle08", "salamanderfrau", "sandro121212"]
+            },
+            {
+                "text": "rule34",
+                "symbol": "🔞",
+                "persons": []
+            },
+            {
+                "text": "Wikipedia",
+                "symbol": "📚",
+                "persons": []
+            },
+            {
+                "text": "Reddit",
+                "symbol": "👽",
+                "persons": []
+            },
+            {
+                "text": "wikiFeet",
+                "symbol": "🦶",
+                "persons": ["scybouns"]
+            },
+            {
+                "text": "Twitter (oder wie Hurensöhne es nennen \"X\")",
+                "symbol": "🐦",
+                "persons": ["hustii", "mra_tov", "sch4tten", "schlossi2002"]
+            },
+            {
+                "text": "Ne keine Lust diggi, wähl was anderes aus",
+                "symbol": "🧍",
+                "persons": ["marjuuuu"]
+            }
+        ]
+    },
+    {
+        "question": "Was ist eure lieblings Waffe um Menschen zu schaden?",
+        "max-selections": 1,
+        "date": "12.03.2024 00:28",
+        "answers": [
+            {
+                "text": "Ikea Möbel",
+                "symbol": "🪑",
+                "persons": ["luk_h", "hustii"]
+            },
+            {
+                "text": "Slotmaschine",
+                "symbol": "🎰",
+                "persons": ["lordturtle08", "scybouns"]
+            },
+            {
+                "text": "Messer",
+                "symbol": "🔪",
+                "persons": ["mra_tov"]
+            },
+            {
+                "text": "Pistole",
+                "symbol": "🔫",
+                "persons": ["techniccgaming_f"]
+            },
+            {
+                "text": "Mein Wissen",
+                "symbol": "🧠",
+                "persons": ["geiche666", "sandro121212", "iberrus", "schlossi2002"]
+            },
+            {
+                "text": "Gott (der Allmächtige wird ihn zerstören)",
+                "symbol": "🪬",
+                "persons": []
+            },
+            {
+                "text": "Mit der nackten Faust den Nacken brechen",
+                "symbol": "👊",
+                "persons": []
+            },
+            {
+                "text": "Hallo ich bin MarJuana und finde Gewalt nicht gut",
+                "symbol": "🧍",
+                "persons": ["marjuuuu"]
+            }
+        ]
+    },
+    {
+        "question": "Was hörst sich nach euch an?",
+        "max-selections": 1,
+        "date": "12.03.2024 00:42",
+        "answers": [
+            {
+                "text": "Kredit aufnehmen um mir ein Döner zu kaufen",
+                "symbol": "🥙",
+                "persons": []
+            },
+            {
+                "text": "Geld klauen von wehrlosen Obdachlosen oder Rentner (die an dem Existenzminimum leben)",
+                "symbol": "💶",
+                "persons": []
+            },
+            {
+                "text": "Nachdenken (was man alles falsch gemacht hat um jetzt auf diesen Server zu landen)",
+                "symbol": "🧠",
+                "persons": ["techniccgaming_f", "lordturtle08", "geiche666", "mra_tov", "schlossi2002"]
+            },
+            {
+                "text": "BLÅHAJ knuddeln und sich vorstellen es wäre ein bf/gf (ich brauche dringen jemanden zum kuscheln)",
+                "symbol": "🦈",
+                "persons": ["salamanderfrau", "scybouns", "hustii"]
+            },
+            {
+                "text": "Sanitärentspannen",
+                "symbol": "🔞",
+                "persons": []
+            },
+            {
+                "text": "Einfach MarJuana sein (\"einfach sitzen und denken\" - Manuellsen)",
+                "symbol": "🧍",
+                "persons": ["marjuuuu"]
+            }
+        ]
+    }
+]
