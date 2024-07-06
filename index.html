@@ -113,7 +113,7 @@
                 
             </div>
         </div>
->
+
         <emoji-picker id="emojiPicker" class="dark"></emoji-picker>
         
         <template id="s-answerTemplate">
@@ -209,28 +209,28 @@ const c_maxAnswersRange = document.getElementById("d-maxAnswersRange");
 const c_maxAnswersInput = document.getElementById("d-maxAnswersInput");
 
 function updateSliderProgress(isChangeFromSlider, isFromSaveMenu) {
-    if (isFromSaveMenu) {
-        if (isChangeFromSlider) {
-            maxAnswersInput.value = maxAnswersRange.value;
-        }
-        else {
-            maxAnswersRange.value = maxAnswersInput.value;
-        }
+    // if (isFromSaveMenu) {
+    //     if (isChangeFromSlider) {
+    //         maxAnswersInput.value = maxAnswersRange.value;
+    //     }
+    //     else {
+    //         maxAnswersRange.value = maxAnswersInput.value;
+    //     }
         
-        let sliderProgress = (maxAnswersRange.value - maxAnswersRange.min) / (maxAnswersRange.max - maxAnswersRange.min) * 100;
-        maxAnswersRange.style.setProperty('--progress', `${sliderProgress}%`);
-    }
-    else {
-        if (isChangeFromSlider) {
-            maxAnswersInput.value = maxAnswersRange.value;
-        }
-        else {
-            maxAnswersRange.value = maxAnswersInput.value;
-        }
+    //     let sliderProgress = (maxAnswersRange.value - maxAnswersRange.min) / (maxAnswersRange.max - maxAnswersRange.min) * 100;
+    //     maxAnswersRange.style.setProperty('--progress', `${sliderProgress}%`);
+    // }
+    // else {
+    //     if (isChangeFromSlider) {
+    //         maxAnswersInput.value = maxAnswersRange.value;
+    //     }
+    //     else {
+    //         maxAnswersRange.value = maxAnswersInput.value;
+    //     }
         
-        let sliderProgress = (maxAnswersRange.value - maxAnswersRange.min) / (maxAnswersRange.max - maxAnswersRange.min) * 100;
-        maxAnswersRange.style.setProperty('--progress', `${sliderProgress}%`);
-    }    
+    //     let sliderProgress = (maxAnswersRange.value - maxAnswersRange.min) / (maxAnswersRange.max - maxAnswersRange.min) * 100;
+    //     maxAnswersRange.style.setProperty('--progress', `${sliderProgress}%`);
+    // }    
 }
 updateSliderProgress(); // Initialer Aufruf, um den Anfangszustand zu setzen
 
@@ -689,4 +689,3 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 </style>
-
