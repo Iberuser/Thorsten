@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="stylesheets/archiveSurvey.css">
+<script src="scripts/range.js"></script>
+<script src="scripts/emoji-picker.js"></script>
+
+<h3 style="margin: 40px auto;">Hier kannst du vergangene Umfragen mit Ergebnissen eintragen und speichern</h3>
+<div id="surveyArchivingForm">
+    <table>
+        <tr>
+            <td> <label>Frage</label> </td>
+            <td> <input type="text" id="question"> </td>
+        </tr>
+        <tr>
+            <td> <label>Max. Auswahlen</label> </td>
+            <td> <div style="display: flex; justify-content: space-between;">
+                <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="maxAnswersInput" class="maxAnswersInput" usage="s">
+                <div class="input rangeContainer">
+                    <span>1</span>
+                    <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="maxAnswersRange" class="maxAnswersRange" usage="s">
+                    <span>6</span>
+                </div>
+            </div> </td>
+        </tr>
+        <tr>
+            <td> <label>Datum & Uhreit</label> </td>
+            <td> <input type="datetime-local" onclick="this.showPicker()"> </td>
+        </tr>
+        <tr>
+            <td> <label>Antwortmöglichkeiten</label> </td>
+            <td id="dynamicAnswerContainer"></td>
+        </tr>
+        <tr>
+            <td> <button onclick="onSurveyFormSubmit()" id="saveSurveyButton">Umfrage Speichern</button> </td>
+        </tr>
+    </table>
+</div>
+
+
+<template id="answerTemplate">
+    <div class="input-answer input-answer" style="justify-content: space-between; display: flex;">
+        <button onclick="openEmoteSelector(this)">😀</button>
+        <input type="text" oninput="onAnswerInput(this)">
+        <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
+    </div>
+</template>
+
+
+<script src=""></script>

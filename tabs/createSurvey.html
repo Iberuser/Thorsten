@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="stylesheets/createSurvey.css">
+<script src="scripts/range.js"></script>
+<script src="scripts/emoji-picker.js"></script>
+
+<h3 style="margin: 40px auto;">Hier kannst du eine Umfrage fürs Autodach erstellen</h3>
+<div id="surveyCreationForm">
+    <table>
+        <tr>
+            <td> <label>Frage</label> </td>
+            <td> <input type="text" id="question"> </td>
+        </tr>
+        <tr>
+            <td> <label for="max-selections max-selections">Max. Auswahlen</label> </td>
+            <td> <div style="display: flex; justify-content: space-between;">
+                <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="maxAnswersInput" class="maxAnswersInput" usage="c">
+                <div class="input rangeContainer">
+                    <span>1</span>
+                    <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="maxAnswersRange" class="maxAnswersRange" usage="c">
+                    <span>6</span>
+                </div>
+            </div> </td>
+        </tr>
+        <tr>
+            <td> <label>Antwortmöglichkeiten</label> </td>
+            <td id="dynamicAnswerContainer"></td>
+        </tr>
+        <tr>
+            <td> <button onclick="onSurveyFormSubmit()" id="saveSurveyButton">Umfrage Speichern</button> </td>
+        </tr>
+    </table>
+</div>
+
+
+<template id="answerTemplate">
+    <div class="input-answer input-answer" style="justify-content: space-between; display: flex;">
+        <button onclick="openEmoteSelector(this)">😀</button>
+        <input type="text" oninput="onAnswerInput(this)">
+        <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
+    </div>
+</template>
+
+
+
+<script>
+    function onAnswerInput(inputField) {
+    const isInputFieldEmpty = inputField.value.trim() === '';
+    
+    // check if situation didnt change
+    if (isInputFieldEmpty && inputField.wasEmpty === true) return;
+    else if (!isInputFieldEmpty && inputField.wasEmpty === false) return;
+    inputField.wasEmpty = isInputFieldEmpty;
+
+    // find out if s or c input
+    const inputPrefix = inputField.getAttribute("usage");
+
+    const containers = document.getElementsByClassName(inputPrefix + '-input-answer');
+    const lastContainer = containers[containers.length - 1];
+    const lastInput = lastContainer.querySelector('input');
+
+    // Wenn der Benutzer im letzten Eingabefeld etwas eingibt
+    if (lastInput === inputField && !isInputFieldEmpty) {
+        insertTemlate( //add new container
+            document.getElementById(inputPrefix + '-dynamicAnswerContainer'), 
+            document.getElementById(inputPrefix + "-answerTemplate")
+        ); 
+        lastContainer.lastElementChild.removeAttribute("disabled"); //enable delete button
+    }
+    
+    //bei mehr als einem feld überprüfung zur entfernung des letzten
+    if (containers.length < 2) return;
+    const secondlastContainer = containers[containers.length - 2];
+    const secondlastInput = secondlastContainer.querySelector('input');
+
+    // Überprüfen, ob das vorletzte Eingabefeld leer ist und lösche letztes
+    if (secondlastInput === inputField && isInputFieldEmpty) {   
+        lastContainer.remove(); //if input emtpy remove conatiner
+        secondlastContainer.lastElementChild.setAttribute("disabled", "true"); //disabled delete button
+    }
+}
+
+function deleteAnswer(button) {
+    button.parentElement.remove();
+}
+
+// maybe i should just remove this function
+function insertTemlate(parent, template) {
+    const newContainer = template.content.cloneNode(true);
+    parent.appendChild(newContainer);
+}
+insertTemlate(s_dynamicAnswerContainer, s_answerTemplate);
+
+function onSurveyFormSubmit() {
+    alert('lol\nDu würdest nicht drücken Florian');
+}
+
+</script>

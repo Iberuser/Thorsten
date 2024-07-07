@@ -1,0 +1,51 @@
+/* File Selector */
+#fileSelector {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+#fileButton {
+  box-shadow: 0 0 5px gray;
+  font-size: large;
+}
+#fileInput {
+    display: none;
+}
+
+/* Survey detail elements */
+.survey {
+    border-bottom: 2px solid gray;
+    margin-bottom: 30px;
+}
+.survey > p {
+    display: inline-block;
+}
+.survey > :first-child {
+    display: flex;
+    justify-content: space-between;
+}
+.survey > :first-child > p {
+    color: #AAAAAA;
+}
+
+.survey > p {
+    margin: auto;
+}
+.survey ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+.survey li {
+    margin: 5px auto;
+}
+.survey li span {
+    color: #aaaaaa;
+}
+
+
+/* TODO: WTF */
+#mainScreen.visible {
+    animation: slideIn 0.3s ease-out;
+}

@@ -1,0 +1,88 @@
+/* For any survey-form */
+#surveyForm {
+    width: 70%;
+    margin: 0 auto;
+}
+
+#saveSurveyButton {
+    transition: opacity 0.5s;
+}
+#saveSurveyButton:hover {
+    cursor: wait;
+    opacity: 0;
+}
+
+/* Answer-Input elements */
+.input-answer {
+    margin: 5px 0;
+}
+.input-answer > button {
+    font-size: 24px;
+    padding: 0;
+}
+.input-answer > input {
+    margin: auto 5px;
+}
+.input-answer > :last-child:hover:not(:disabled) {
+    transform: scale(1.0);
+    background-color: #8b1a1a;
+    box-shadow: #5a0808 0 0 5px;
+}
+
+/* Inputs */
+input,
+.input {
+    display: inline-block;
+    background-color: #40444B; 
+    color: #FFFFFF; 
+    border-radius: 3px; 
+    width: 100%;
+    box-sizing: border-box;
+    font-size: medium;
+    font-family: sans-serif;
+}
+input:not([type="range"]),
+.input {
+    padding: 8px; 
+    border: 1px solid #7289DA; 
+}
+input:disabled,
+.input:disabled {
+    background-color: #393b3f; 
+    color: #a3a3a3; 
+    border: 1px solid #7c839b; 
+    opacity: 0.7;
+}
+input:focus,
+.input:focus {
+    outline: 1px solid #486270;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator { /*modify calendar icon to fit style*/
+   filter: invert();
+   transform: scale(1.2);
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Tables */
+td:first-child {
+    width: 1%;
+    white-space: nowrap;
+    padding-right: 40px;
+}
+
+table {
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+th, td {
+    padding: 6px;
+    text-align: left;
+}

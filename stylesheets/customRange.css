@@ -1,0 +1,30 @@
+input[type=range] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    overflow: hidden;
+    width: 100%;
+    height: 12px;
+    cursor: pointer;
+    background: #7289DA;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #7289DA 0% var(--progress), #ddd var(--progress) 100%);
+}   
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: #486270 1px solid;
+    height: 28px;
+    width: 10px;
+    border-radius: 5px;
+    background: #5367ad;
+    margin-top: -8px;
+}
+.maxAnswersInput {
+    width: 2em; 
+    margin-right: 16px
+}
+.rangeContainer {
+    display: flex;
+}

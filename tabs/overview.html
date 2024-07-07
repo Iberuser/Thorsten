@@ -1,36 +1,11 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistiken - Thorstens Umfragen</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="overview.css">
-</head>
-<body>
-    <div id="greetingScreen" class="screen visible">
-        <h3 style="color: orangered; margin-bottom: 120px;">Thorstens Umfragearchiv 0.2 --- Die umfragen hier sind erstmal nur zur demo --- Vorschläge sind willkommen</h3>
-        <h3>Willkommen in Thorstens Umfragearchiv (nicht von Thorsten)</h3>
-        <p>
-            <br>
-            Bisher sind in der Datei nur einige Umfragen zur demo gespeichert. <br>
-            Das design der Seite ist ebenso nicht vollständig, besonders die Auflisten der Personen - Vorschläge sind willkommen. <br>
-            PS: An die Freundinnen und Freunde des gelungenen HTMLs: Schaut um Gottes willen nicht in den Code <br>
-            <br>
-            Um zu beginnen klicken auf den Knopf unten und wähle die thorsten.json Datei aus. <br>
-            Solltest du nicht wissen wer .json ist, wähle die thorsten Datei OHNE das Symbol von deinem Browser drauf. <br>
-            (wahrscheinlich sieht sie dann aus wie eine Textdatei) <br>
-            <br>
-        </p>
+<link rel="stylesheet" href="stylesheets/overview.css">
 
-        <div id="fileSelector">
-            <button id="fileButton" onclick="document.getElementById('fileInput').click()">📑 Datei wählen</button>
-            <input type="file" id="fileInput" name="fileInput" accept=".json" style="display: none" onchange="onFileSelect()"> <!-- Invisible input to redirect button -->
-            <p id="fileLabel">Wähle die <b>thorsten.json</b> Datei aus</p>
-        </div>
-    </div>
-</body>
-</html>
+<h3 style="color: orangered; margin-bottom: 120px;">Thorstens Umfragearchiv 0.2 --- Die umfragen hier sind erstmal nur zur demo --- Vorschläge sind willkommen</h3>
 
+<div id="surveyContainer"></div>
 
-<script src=""></script>
+<div id="fileSelector">
+    <button id="fileButton" onclick="document.getElementById('fileInput').click()">📑 Datei wählen</button>
+    <input type="file" id="fileInput" accept=".json" onchange="onFileSelect()">
+    <p id="fileLabel">Wähle die <b>thorsten.json</b> Datei aus</p>
+</div>
