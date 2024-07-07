@@ -1,2 +1,2 @@
-# Thorsten
-Thorstens Umfrage Archiv entwickelt von Justin
+# Thorstens Umfrage-Archiv
+## Entwickelt von Justin
