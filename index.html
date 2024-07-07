@@ -57,7 +57,7 @@ function onTabSelect(selectedTabId) {
     document.querySelectorAll('.tab').forEach(element => {
         element.innerHTML = "";
     });
-    loadHTML("/tabs/"+ selectedTabId + ".html", selectedTabId + "Tab");
+    loadHTML("tabs/"+ selectedTabId + ".html", selectedTabId + "Tab");
 
     //update nav button highlight
     document.querySelectorAll('.tabButton').forEach(element => {
@@ -67,5 +67,5 @@ function onTabSelect(selectedTabId) {
 }
 
 // initialize greeting screen
-loadHTML("/tabs/greetingScreen.html", "greetingScreen")
+loadHTML("tabs/greetingScreen.html", "greetingScreen")
 </script>
