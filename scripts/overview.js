@@ -59,3 +59,6 @@ function loadSurveys(fileName) {
         })
         .catch(error => console.error('Error loading survey:', error));
 }
+
+// initialize
+loadSurveys('thorsten.json');

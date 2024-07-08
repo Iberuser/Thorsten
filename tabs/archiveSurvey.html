@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="stylesheets/archiveSurvey.css">
+<link rel="stylesheet" href="stylesheets/surveyForm.css">
 <script src="scripts/range.js"></script>
 <script src="scripts/emoji-picker.js"></script>
 
@@ -12,10 +12,10 @@
         <tr>
             <td> <label>Max. Auswahlen</label> </td>
             <td> <div style="display: flex; justify-content: space-between;">
-                <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="maxAnswersInput" class="maxAnswersInput" usage="s">
-                <div class="input rangeContainer">
+                <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="maxAnswersInput">
+                <div class="input" id="rangeContainer">
                     <span>1</span>
-                    <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="maxAnswersRange" class="maxAnswersRange" usage="s">
+                    <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="maxAnswersRange">
                     <span>6</span>
                 </div>
             </div> </td>
@@ -36,7 +36,7 @@
 
 
 <template id="answerTemplate">
-    <div class="input-answer input-answer" style="justify-content: space-between; display: flex;">
+    <div class="input-answer" style="justify-content: space-between; display: flex;">
         <button onclick="openEmoteSelector(this)">😀</button>
         <input type="text" oninput="onAnswerInput(this)">
         <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>

@@ -25,6 +25,6 @@ input[type=range]::-webkit-slider-thumb {
     width: 2em; 
     margin-right: 16px
 }
-.rangeContainer {
+#rangeContainer {
     display: flex;
 }

@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thorstens Umfragen</title>
+    <link rel="shortcut icon" href="icon.webp" type="image/x-icon">
+
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="stylesheets/customRange.css">
-
-    <script src="scripts/overview.js"></script>
 </head>
 
 <body>
     <nav>
-        <a id="overviewTabButton" class="tabButton" onclick="onTabSelect('overview'); loadSurveys('thorsten.json');">👀 Umfrageansicht</a>
+        <a id="overviewTabButton" class="tabButton" onclick="onTabSelect('overview');">👀 Umfrageansicht</a>
         <a id="statisticsTabButton" class="tabButton" onclick="onTabSelect('statistics');">📊 Umfragestatistiken</a>
         <a id="archiveSurveyTabButton" class="tabButton" onclick="onTabSelect('archiveSurvey');">✒️ Umfrage eintragen</a>
         <a id="createSurveyTabButton" class="tabButton" onclick="onTabSelect('createSurvey');">✨ Umfrage erstellen (Ohne AI)</a>
@@ -39,11 +40,25 @@
 //alle vorhandenen inputs auslesen und daten in classe oder ass. array speichern
 //aus classe oder ass. array in datei fetchen
 
-function loadHTML(url, elementId) {
+// remove old temporary scripts and load new ones
+function loadScript(url) {
+    const scripts = document.querySelectorAll(".tempScript");
+    scripts.forEach(script => script.remove());
+
+    //urls.forEach(url => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.className = "tempScript";
+        document.head.appendChild(script);
+    //});
+}
+
+function loadHTML(url, elementId, scriptUrl) {
     fetch(url)
         .then(response => response.text())
         .then(data => {
             document.getElementById(elementId).innerHTML = data;
+            if (scriptUrl != undefined) loadScript(scriptUrl);
         })
         .catch(error => console.error('Fehler beim Laden des HTML-Fragments:', error));
 }
@@ -57,7 +72,7 @@ function onTabSelect(selectedTabId) {
     document.querySelectorAll('.tab').forEach(element => {
         element.innerHTML = "";
     });
-    loadHTML("tabs/"+ selectedTabId + ".html", selectedTabId + "Tab");
+    loadHTML("tabs/"+ selectedTabId + ".html", selectedTabId + "Tab", "scripts/" + selectedTabId + ".js");
 
     //update nav button highlight
     document.querySelectorAll('.tabButton').forEach(element => {
@@ -66,6 +81,29 @@ function onTabSelect(selectedTabId) {
     document.getElementById(selectedTabId + "TabButton").classList.add("selected");
 }
 
+// maybe i should just remove this function
+function insertTemlate(parent, template) {
+    const newContainer = template.content.cloneNode(true);
+    parent.appendChild(newContainer);
+}
+
+// custom range 
+function updateSliderProgress(isChangeFromSlider) {
+    const maxAnswersInput = document.getElementById("maxAnswersInput");
+    const maxAnswersRange = document.getElementById("maxAnswersRange");
+
+    if (isChangeFromSlider) {
+        maxAnswersInput.value = maxAnswersRange.value;
+    }
+    else {
+        maxAnswersRange.value = maxAnswersInput.value;
+    }
+    
+    const sliderProgress = (maxAnswersRange.value - maxAnswersRange.min) / (maxAnswersRange.max - maxAnswersRange.min) * 100;
+    maxAnswersRange.style.setProperty('--progress', `${sliderProgress}%`);
+}
+
 // initialize greeting screen
 loadHTML("tabs/greetingScreen.html", "greetingScreen")
+
 </script>
