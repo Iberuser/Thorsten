@@ -21,7 +21,7 @@ input[type=range]::-webkit-slider-thumb {
     background: #5367ad;
     margin-top: -8px;
 }
-.maxAnswersInput {
+#maxAnswersInput {
     width: 2em; 
     margin-right: 16px
 }

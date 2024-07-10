@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thorstens Umfragen</title>
     <link rel="shortcut icon" href="icon.webp" type="image/x-icon">
-
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
-
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="stylesheets/customRange.css">
 </head>
 
 <body>
@@ -42,15 +39,12 @@
 
 // remove old temporary scripts and load new ones
 function loadScript(url) {
-    const scripts = document.querySelectorAll(".tempScript");
-    scripts.forEach(script => script.remove());
-
-    //urls.forEach(url => {
-        const script = document.createElement('script');
-        script.src = url;
-        script.className = "tempScript";
-        document.head.appendChild(script);
-    //});
+    //alert("adding " + url);
+    const script = document.createElement('script');
+    script.src = url;
+    script.onload = () => init();
+    script.className = "tempScript";
+    document.head.appendChild(script);
 }
 
 function loadHTML(url, elementId, scriptUrl) {
@@ -68,7 +62,9 @@ function onTabSelect(selectedTabId) {
     //remove greetingscreen if present
     document.getElementById("greetingScreen")?.remove();
 
-    // unload and load tab
+    // unload and load tabconst scripts = document.querySelectorAll(".tempScript");
+    document.querySelectorAll(".tempScript").forEach(script => script.remove());
+
     document.querySelectorAll('.tab').forEach(element => {
         element.innerHTML = "";
     });
@@ -87,21 +83,6 @@ function insertTemlate(parent, template) {
     parent.appendChild(newContainer);
 }
 
-// custom range 
-function updateSliderProgress(isChangeFromSlider) {
-    const maxAnswersInput = document.getElementById("maxAnswersInput");
-    const maxAnswersRange = document.getElementById("maxAnswersRange");
-
-    if (isChangeFromSlider) {
-        maxAnswersInput.value = maxAnswersRange.value;
-    }
-    else {
-        maxAnswersRange.value = maxAnswersInput.value;
-    }
-    
-    const sliderProgress = (maxAnswersRange.value - maxAnswersRange.min) / (maxAnswersRange.max - maxAnswersRange.min) * 100;
-    maxAnswersRange.style.setProperty('--progress', `${sliderProgress}%`);
-}
 
 // initialize greeting screen
 loadHTML("tabs/greetingScreen.html", "greetingScreen")
