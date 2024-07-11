@@ -1,0 +1,44 @@
+#surveyForm {
+    margin-bottom: 60px;
+}
+
+#surveyPreviewContainer {
+    background-color: #222222a0;
+    padding: 10px;
+    font-family: sans-serif; 
+    border-radius: 5px; 
+    border: 1px solid #7289DA;
+}
+#surveyPreviewContainer > div {
+    display: inline-block;
+}
+#surveyPreviewContainer img {
+    margin: 8px 16px auto auto;
+    height: 40px; 
+    background-color: #dddddd; 
+    border-radius: 50%; 
+    border: 1px solid lime; 
+    vertical-align: top;
+}
+
+#surveyPreviewContainer > div > :nth-child(1) {
+    color: blueviolet; 
+    line-height: 2em;
+}
+#surveyPreviewContainer > div > :nth-child(2) {
+    color: #999999; 
+    font-size: 0.75em;
+}
+
+#surveyPreview  {
+    font-size: 0.9em;
+}
+
+#copySurveyButton {
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+#copySurveyButton:active {
+    box-shadow: 0 0 12px 3px #697eca;
+    background-color: #425bb8;
+    transform: scale(0.8);
+}

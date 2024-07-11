@@ -9,7 +9,7 @@
         else {
             emojiPicker.classList.add("visible");
             emojiPicker.clickedButton = clickedButton;
-            clickedButton.textContent = "😀";
+            clickedButton.textContent = "🧍";
             
             const rect = clickedButton.getBoundingClientRect();
             emojiPicker.style.left = rect.left + "px";
@@ -26,7 +26,7 @@
         });  
 
         document.body.addEventListener("keydown", function (event) {
-            if (event.keyCode == 27 && emojiPicker.classList.contains("visible")) {
+            if (event.code == 27 && emojiPicker.classList.contains("visible")) {
                 emojiPicker.classList.remove("visible");
             }
         });  

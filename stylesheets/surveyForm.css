@@ -1,9 +1,4 @@
-/* For any survey-form */
-#surveyForm {
-    width: 70%;
-    margin: 0 auto;
-}
-
+/* Buttons */
 #saveSurveyButton {
     transition: opacity 0.5s;
 }

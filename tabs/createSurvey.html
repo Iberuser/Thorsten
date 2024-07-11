@@ -1,20 +1,21 @@
+<link rel="stylesheet" href="stylesheets/createSurveyTab.css">
 <link rel="stylesheet" href="stylesheets/surveyForm.css">
 <link rel="stylesheet" href="stylesheets/customRange.css">
 
 <h3 style="margin: 40px auto;">Hier kannst du eine Umfrage fürs Autodach erstellen</h3>
-<div id="surveyCreationForm">
+<div id="surveyForm">
     <table>
         <tr>
             <td> <label>Frage</label> </td>
-            <td> <input type="text" id="question"> </td>
+            <td> <input type="text" id="questionInput" oninput="updatePreview(this)"> </td>
         </tr>
         <tr>
-            <td> <label for="max-selections max-selections">Max. Auswahlen</label> </td>
+            <td> <label>Max. Auswahlen</label> </td>
             <td> <div style="display: flex; justify-content: space-between;">
-                <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0)" id="maxAnswersInput">
+                <input type="number" min="1" max="6" value="1" oninput="updateSliderProgress(0); updatePreview(this);" id="maxAnswersInput">
                 <div class="input" id="rangeContainer">
                     <span>1</span>
-                    <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1)" tabindex="-1" id="maxAnswersRange">
+                    <input type="range" min="1", max="6" value="1" oninput="updateSliderProgress(1); updatePreview(this);" tabindex="-1" id="maxAnswersRange">
                     <span>6</span>
                 </div>
             </div> </td>
@@ -24,17 +25,36 @@
             <td id="dynamicAnswerContainer"></td>
         </tr>
         <tr>
-            <td> <button onclick="onSurveyFormSubmit()" id="saveSurveyButton">Umfrage Speichern</button> </td>
+            <td> <button onclick="copySurvey();" id="copySurveyButton">Text Kopieren</button> </td>
+            <td> <button onclick="" id="" disabled>Zum Speichermenü transferieren</button> </td>
         </tr>
     </table>
 </div>
-<h3>TODO: Umfrage-Vorschau</h3>
+
+<h3>Vorschau</h3>
+<div id="surveyPreviewContainer">
+    <img src='icon.webp'>
+    <div>
+        <span>Der einzig wahre Thorsten </span>
+        <span id="previewTimestamp">11.11.2024 11:11</span>
+        <div id="surveyPreview"></div>
+    </div>
+</div>
+
+<pre style="color: gray; margin-top: 40px; font-family: sans-serif;">
+<b>Hinweise:</b>
+- Discord Markup wird in der Vorschau unterstützt, muss aber manuell gemacht werden
+- Emotesuche funktioniert grade nur auf englisch, mal shcauen ob ich dagegen was machen kann
+- Emotes von Discord Servern müssen zuzeit noch in Discord selbst gemacht werden
+  Ich werd wahrscheinlich zumindest eine möglichkeit machen die namen hier einzugeben
+- Reaktionen müssen manuell hinzugefügt werden ich kann ja nicht alles machen
+</pre>
 
 
 <template id="answerTemplate">
     <div class="input-answer" style="justify-content: space-between; display: flex;">
-        <button onclick="openEmoteSelector(this)">😀</button>
-        <input type="text" oninput="onAnswerInput(this)">
-        <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
+        <button onclick="openEmoteSelector(this)" onmouseleave="updatePreview(this);">🧍</button>
+        <input type="text" oninput="onAnswerInput(this); updatePreview(this);">
+        <button onclick="deleteAnswer(this); updatePreview(this);" tabindex="-1" disabled>❌</button>
     </div>
 </template>

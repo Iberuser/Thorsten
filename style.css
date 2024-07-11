@@ -14,6 +14,15 @@ body {
     font-family: 'Roboto', sans-serif; 
 }
 
+/* Tabs */
+#archiveSurveyTab, #createSurveyTab {
+    width: 70%;
+    margin: 0 auto;
+}
+.tabs {
+    /*TODO: HIER ANIMATION ZUM EINBLENDEN */
+}
+
 /* Links */
 a {
     color: #7289DA;
@@ -78,6 +87,20 @@ nav > a:hover {
 }
 #emojiPicker.visible {
     display: block;
+}
+
+/* markup */
+.heading {
+    font-size: xx-large;
+}
+.spoiler {
+    background-color: black; 
+    color: black;
+    border-radius: 3px;
+}
+.spoiler:active {
+    background-color: inherit;
+    color: inherit;
 }
 
 
