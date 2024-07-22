@@ -1,0 +1,21 @@
+.answerUserList { /*userliste*/
+    display: flex block;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    margin: 4px auto 8px auto;
+}
+.answerUserList > * { /*userliste*/
+    background-color: #6a769e;
+    padding: 4px 8px;
+    margin-right: 8px;
+}
+.answerUserList > :not(:first-child) > :last-child { /*userliste*/
+    display: none;
+    line-height: 1;
+}
+.answerUserList > :not(:first-child):hover > :last-child { /*userliste*/
+    display: unset;
+}
+.answerUserList > :not(:first-child):hover {
+    background-color: #6b5656;
+}

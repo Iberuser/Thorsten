@@ -1,0 +1,54 @@
+#userSelector {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1b1b1bf0;
+    display: none;
+}
+#userSelector.visible {
+    display: block;
+}
+
+#userSelector > div {
+    margin: 20vh auto;
+    padding: 8px;
+    border: 1px solid dimgray;
+    max-width: max-content;
+    border-radius: 12px;
+}
+#userSelector > div > :first-child {
+    display: flex;
+    margin: 4px 4px 12px 4px;
+}
+#userSelector input {
+    margin-right: 8px;
+}
+
+#userSelector table {
+    border-spacing: 4px;
+    width: 100%;
+}
+#userSelectorList td {
+    border-bottom: 1px solid dimgray;
+    cursor: pointer;
+    width: 50%;
+    transition: background-color 0.3s;
+}
+#userSelectorList td:hover {
+    background-color: #3f3f3ff0;
+}
+#userSelectorList td.disabled p {
+    color: #727272;
+}
+#userSelectorList td > p {
+    display: inline-block;
+    margin: 12px 8px;
+}
+#userSelectorList td > img {
+    width: 32px;
+    border-radius: 50%;
+    vertical-align: middle;
+}

@@ -11,7 +11,7 @@
         else if (!isInputFieldEmpty && inputField.wasEmpty === false) return;
         inputField.wasEmpty = isInputFieldEmpty;
 
-        const containers = document.getElementsByClassName('input-answer');
+        const containers = document.getElementsByClassName('answerElement');
         const lastContainer = containers[containers.length - 1];
         const lastInput = lastContainer.querySelector('input');
 
@@ -36,13 +36,6 @@
     window.deleteAnswer = function(button) {
         button.parentElement.remove();
     }
-    
-
-    window.onSurveyFormSubmit = function() {
-        alert('lol\nDu würdest nicht drücken Florian');
-        // TODO: Mehrere optionen zur ausgabe als text oder so
-    }
-    
 
     window.discordifyText = function(text) {
         // Ersetze ***/*** durch <b><i>/<i></b>
@@ -56,7 +49,7 @@
         // Ersetze || durch <span style='background-color:black; color:black;'>/<span>
         text = text.replace(/\|\|(.*?)\|\|/g, '<span class="spoiler">$1</span>');
         // Ersetze # am Anfang der Zeile durch <h1>/<h1>
-        text = text.replace(/^# (.*?)(?=\n|$)/, '<span class="heading">$1</span>'); //kein g weil nur erstes vorkommen ersetzen
+        text = text.replace(/^\s*?# (.*?)$/, '<span class="heading">$1</span>'); //kein g weil nur erstes vorkommen ersetzen
         
         return text;
     }
@@ -69,7 +62,7 @@
 
         html += "<span>" + (question == "" ? "Generische Frage" : question) + " (Mehrfachauswahl " + (maxAnswers == 1 ? "<b>nicht</b> möglich" : "möglich (<b>Max." + maxAnswers + "</b>)") + ")</span> <br><br>";
 
-        const containers = document.querySelectorAll('.input-answer');
+        const containers = document.querySelectorAll('.answerElement');
         containers.forEach(container => {
             const answer = discordifyText(container.querySelector('input').value);
             if (answer == "") return;
@@ -89,7 +82,7 @@
 
         text += (question == "" ? "Generische Frage" : question) + " (Mehrfachauswahl " + (maxAnswers == 1 ? "**nicht** möglich" : "möglich (**Max." + maxAnswers + "**)") + ")\n\n";
 
-        const containers = document.querySelectorAll('.input-answer');
+        const containers = document.querySelectorAll('.answerElement');
         containers.forEach(container => {
             const answer = container.querySelector('input').value;
             if (answer == "") return;

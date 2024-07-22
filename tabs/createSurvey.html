@@ -50,9 +50,11 @@
 - Reaktionen müssen manuell hinzugefügt werden ich kann ja nicht alles machen
 </pre>
 
+<emoji-picker id="emojiPicker" class="dark"></emoji-picker>
+
 
 <template id="answerTemplate">
-    <div class="input-answer" style="justify-content: space-between; display: flex;">
+    <div class="answerElement">
         <button onclick="openEmoteSelector(this)" onmouseleave="updatePreview(this);">🧍</button>
         <input type="text" oninput="onAnswerInput(this); updatePreview(this);">
         <button onclick="deleteAnswer(this); updatePreview(this);" tabindex="-1" disabled>❌</button>

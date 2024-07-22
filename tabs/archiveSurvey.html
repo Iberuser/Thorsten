@@ -1,11 +1,20 @@
+<link rel="stylesheet" href="stylesheets/archiveSurveyTab.css">
 <link rel="stylesheet" href="stylesheets/surveyForm.css">
 <link rel="stylesheet" href="stylesheets/customRange.css">
-<script src="scripts/range.js"></script>
-<script src="scripts/emoji-picker.js"></script>
+<link rel="stylesheet" href="stylesheets/userSelector.css">
 
 <h3 style="margin: 40px auto;">Hier kannst du vergangene Umfragen mit Ergebnissen eintragen und speichern</h3>
 <div id="surveyForm">
     <table>
+        <tr>
+            <td></td>
+            <td> 
+                <button onclick="importSurveyFromClipboard();">
+                    <span>Aus Zwischenablage importieren</span> <br>
+                    <span style="font-size: smaller; color: lightgray;">(Egal ob mit oder ohne Datumszeile)</span>
+                </button> 
+            </td>
+        </tr>
         <tr>
             <td> <label>Frage</label> </td>
             <td> <input type="text" id="questionInput"> </td>
@@ -23,7 +32,7 @@
         </tr>
         <tr>
             <td> <label>Datum & Uhreit</label> </td>
-            <td> <input type="datetime-local" onclick="this.showPicker()"> </td>
+            <td> <input type="datetime-local" onclick="this.showPicker()" id="datetimeInput"> </td>
         </tr>
         <tr>
             <td> <label>Antwortmöglichkeiten</label> </td>
@@ -35,14 +44,26 @@
     </table>
 </div>
 
+<div id="userSelector">
+    <div>
+        <div>
+            <input type="text" placeholder="Namen eingeben oder suchen" oninput="onUserSelectorInput(this.value)" onkeydown="userSelectorInputConfirm(event)" id="userSelectorInput">
+            <button onclick="userSelectorInputConfirm()">✔</button>
+        </div>
+        <table id="userSelectorList"> </table>
+    </div>
+</div>
+
+<emoji-picker id="emojiPicker" class="dark"></emoji-picker>
+
 
 <template id="answerTemplate">
-    <div class="input-answer" style="justify-content: space-between; display: flex;">
-        <button onclick="openEmoteSelector(this)">😀</button>
+    <div class="answerElement">
+        <button onclick="openEmoteSelector(this)">🧍</button>
         <input type="text" oninput="onAnswerInput(this)">
         <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
+        <div class="answerUserList">
+            <button onclick="openUserPopup(this);">+</button>
+        </div>
     </div>
 </template>
-
-
-<script src=""></script>

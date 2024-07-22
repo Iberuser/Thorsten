@@ -8,17 +8,24 @@
 }
 
 /* Answer-Input elements */
-.input-answer {
+.answerElement {
     margin: 5px 0;
+    justify-content: space-between; 
+    display: flex;
+    flex-wrap: wrap;
 }
-.input-answer > button {
+.answerElement > button {
     font-size: 24px;
     padding: 0;
+    width: 1.5em;
 }
-.input-answer > input {
+.answerElement > input {
     margin: auto 5px;
+    /* damit platz einimmt, aber nicht in nächste zeile verdrängt */
+    width: unset;
+    flex-grow: 1;
 }
-.input-answer > :last-child:hover:not(:disabled) {
+.answerElement > :nth-child(3):hover:not(:disabled) {
     transform: scale(1.0);
     background-color: #8b1a1a;
     box-shadow: #5a0808 0 0 5px;
@@ -66,18 +73,18 @@ input[type=number]::-webkit-inner-spin-button {
 
 
 /* Tables */
-td:first-child {
+#surveyForm td:first-child {
     width: 1%;
     white-space: nowrap;
     padding-right: 40px;
 }
 
-table {
+#surveyForm table {
     width: 100%; 
     border-collapse: collapse; 
 }
 
-th, td {
+#surveyForm th, #surveyForm td {
     padding: 6px;
     text-align: left;
 }
