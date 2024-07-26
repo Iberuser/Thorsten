@@ -26,7 +26,10 @@
         </tr>
         <tr>
             <td> <button onclick="copySurvey();" id="copySurveyButton">Text Kopieren</button> </td>
-            <td> <button onclick="" id="" disabled>Zum Speichermenü transferieren</button> </td>
+            <td> 
+                <button onclick="" id="" disabled>Zum Speichermenü transferieren</button>
+                <button onclick="clearSurveyForm()" id="clearSurveyButton">Formular leeren</button>
+            </td>
         </tr>
     </table>
 </div>
@@ -41,21 +44,13 @@
     </div>
 </div>
 
-<pre style="color: gray; margin-top: 40px; font-family: sans-serif;">
-<b>Hinweise:</b>
-- Discord Markup wird in der Vorschau unterstützt, muss aber manuell gemacht werden
-- Emotesuche funktioniert grade nur auf englisch, mal shcauen ob ich dagegen was machen kann
-- Emotes von Discord Servern müssen zuzeit noch in Discord selbst gemacht werden
-  Ich werd wahrscheinlich zumindest eine möglichkeit machen die namen hier einzugeben
-- Reaktionen müssen manuell hinzugefügt werden ich kann ja nicht alles machen
-</pre>
 
 <emoji-picker id="emojiPicker" class="dark"></emoji-picker>
 
 
 <template id="answerTemplate">
     <div class="answerElement">
-        <button onclick="openEmoteSelector(this)" onmouseleave="updatePreview(this);">🧍</button>
+        <button onclick="event.stopPropagation(); openEmoteSelector(this)" onmouseleave="updatePreview(this);">🧍</button>
         <input type="text" oninput="onAnswerInput(this); updatePreview(this);">
         <button onclick="deleteAnswer(this); updatePreview(this);" tabindex="-1" disabled>❌</button>
     </div>

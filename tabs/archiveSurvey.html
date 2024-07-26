@@ -40,13 +40,18 @@
         </tr>
         <tr>
             <td> <button onclick="onSurveyFormSubmit()" id="saveSurveyButton">Umfrage Speichern</button> </td>
+            <td> <button onclick="clearSurveyForm()" id="clearSurveyButton">Formular leeren</button> </td>
         </tr>
     </table>
 </div>
 
-<div id="userSelector">
-    <div>
-        <div>
+<p id="statusText">Hallo</p>
+
+
+<div id="userSelector" onclick="closeUserSelector();" onkeydown="closeUserSelector(event);">
+    <div onclick="event.stopPropagation();">
+        <div style="position: relative;">
+            <button id="userSelectorClose" onclick="closeUserSelector()">x</button>
             <input type="text" placeholder="Namen eingeben oder suchen" oninput="onUserSelectorInput(this.value)" onkeydown="userSelectorInputConfirm(event)" id="userSelectorInput">
             <button onclick="userSelectorInputConfirm()">✔</button>
         </div>
@@ -59,7 +64,7 @@
 
 <template id="answerTemplate">
     <div class="answerElement">
-        <button onclick="openEmoteSelector(this)">🧍</button>
+        <button onclick="event.stopPropagation(); openEmoteSelector(this)">🧍</button>
         <input type="text" oninput="onAnswerInput(this)">
         <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
         <div class="answerUserList">

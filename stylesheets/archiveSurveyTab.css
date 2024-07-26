@@ -1,21 +1,56 @@
-.answerUserList { /*userliste*/
+/* userliste */
+.answerUserList { 
     display: flex block;
     flex-wrap: wrap;
     flex-basis: 100%;
     margin: 4px auto 8px auto;
 }
-.answerUserList > * { /*userliste*/
+.answerUserList > * {
     background-color: #6a769e;
     padding: 4px 8px;
     margin-right: 8px;
 }
-.answerUserList > :not(:first-child) > :last-child { /*userliste*/
+.answerUserList > :not(:first-child) > :last-child { 
     display: none;
     line-height: 1;
 }
-.answerUserList > :not(:first-child):hover > :last-child { /*userliste*/
+.answerUserList > :not(:first-child):hover > :last-child {
     display: unset;
 }
 .answerUserList > :not(:first-child):hover {
     background-color: #6b5656;
+}
+
+/* userselector close-button */
+#userSelectorClose {
+    position: absolute; 
+    left: -40px; 
+    background-color: transparent; 
+    font-size: x-large; 
+    padding: 0; 
+    top: -100%;
+}
+#userSelectorClose:hover {
+    color: red;
+}
+
+/* status-text */
+#statusText {
+    display: none;
+    position: fixed;
+    bottom: 0px;
+    width: 25%;
+    margin: 0 25%;
+    padding: 8px;
+    background-color: #cccccc;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+}
+#statusText.visible {
+    display: block;
+    animation: statusTextSlide 0.5s;
+}
+@keyframes statusTextSlide {
+    0% {bottom: -3em;}
 }

@@ -12,6 +12,7 @@ body {
     background-position: center;
     color: #ebebeb; 
     font-family: 'Roboto', sans-serif; 
+    overflow-y: scroll;
 }
 
 /* Tabs */
@@ -103,6 +104,37 @@ nav > a:hover {
     color: inherit;
 }
 
+/* clippy */
+#clippy {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 16px;
+    font-size: 3em;
+}
+#clippy:hover {
+    cursor: default;
+    animation: clippy 0.6s ease;
+}
+#clippy:hover + #clippyText, #clippyText.visible {
+    display: block;
+}
+#clippy:hover + #clippyText {
+    animation: clippyText 0.6 ease;
+}
+#clippyText {
+    display: none;
+    position: fixed;
+    bottom: 56px;
+    right: 56px;
+    padding: 5px;
+    background-color: #fff8cf;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
 
 /* Animations */
 @keyframes fadeIn {
@@ -113,4 +145,13 @@ nav > a:hover {
 @keyframes slideIn {
     0% {top: 200px;}
     100% {top: 0;}
+}
+
+@keyframes clippy {
+    40% {transform: translateX(-20px) translateY(-18px) rotate(-12deg) scale(1.2) scaleY(1.4);}
+    70% {transform: translateX(2px) translateY(6px) rotate(-6deg) scale(0.9) scaleY(0.7);}
+    85% {transform: translateX(-8px) translateY(-6px) rotate(-10deg) scale(1.07) scaleY(1.12);}
+}
+@keyframes clippyText {
+    70% {transform: scaleY(1.2);}
 }

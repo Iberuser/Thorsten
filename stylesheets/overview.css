@@ -2,7 +2,7 @@
 #fileSelector {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     text-align: center;
     animation: fadeIn 0.3s ease;
 }
@@ -13,13 +13,19 @@
 #fileInput {
     display: none;
 }
+#fileLabel {
+    background-color: #383833;
+    box-shadow: 0 0 8px 4px #383833;
+}
 
 /* Survey detail elements */
 .survey {
+    position: relative;
+    animation: slideIn 0.5s cubic-bezier(0.1, 0, 0.0, 1.0);
     border-bottom: 2px solid gray;
     margin-bottom: 30px;
 }
-.survey > p {
+.survey p {
     display: inline-block;
 }
 .survey > :first-child {
@@ -28,6 +34,7 @@
 }
 .survey > :first-child > p {
     color: #AAAAAA;
+    text-align: right;
 }
 
 .survey > p {
@@ -45,7 +52,14 @@
 }
 
 
-/* TODO: WTF */
-#mainScreen.visible {
-    animation: slideIn 0.3s ease-out;
+/* Survey container */
+#surveyContainer {
+    margin-bottom: 120px;
+}
+
+
+/* Animation */
+@keyframes slideIn {
+    0% {top: 100vh; opacity: 0;}
+    100% {top: 0; opacity: 1;}
 }

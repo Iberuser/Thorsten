@@ -1,6 +1,7 @@
 (function () {
     const dynamicAnswerContainer = document.getElementById('dynamicAnswerContainer');
     const answerTemplate = document.getElementById('answerTemplate');
+    const statusLabel = document.getElementById("statusText");
 
     window.onAnswerInput = function(inputField) {
         const isInputFieldEmpty = inputField.value.trim() === '';
@@ -36,12 +37,137 @@
         button.parentElement.remove();
     }
 
+
+    window.getSurveyFromFrom = function() {
+        const question = document.getElementById("questionInput").value;
+        const maxChoices = document.getElementById("maxAnswersInput").value;
+        const timestamp = document.getElementById("datetimeInput").value;
+
+        let answers = [];
+        document.querySelectorAll(".answerElement").forEach(answerElement => {
+            const emote = answerElement.querySelector("button:first-child").innerHTML;
+            const answerText = answerElement.querySelector("input").value;
+
+            if (answerText.trim() == "") return; // exit answer loop
+
+            let users = [];
+            answerElement.querySelectorAll("div > button:not(:first-child) > span:first-child").forEach(userElement => {
+                users.push(userElement.innerHTML);
+            });
+
+            const answer = {
+                text: answerText,
+                emote: emote,
+                users: users
+            };
+            answers.push(answer);
+        });
+
+        const survey = {
+            question: question,
+            maxChoices: maxChoices,
+            timeStamp: timestamp,
+            answers: answers
+        };
+        console.log(survey);
+        return survey;
+    }
+
+    window.isSurveyCompletet = function(survey) {
+        return (
+            survey.question &&
+            survey.timeStamp &&
+            survey.answers.length >= 2
+        );
+    }
+
+    window.doesSurveyAlreadyExist = function(jsonData, newSurveyQuestion) {
+        for (let i = 0; i < jsonData.length; i++) {
+            let currentQuestion = jsonData[i].question.toLowerCase().trim();
+            let question = document.getElementById("questionInput").value;
+
+            if (currentQuestion == newSurveyQuestion) {
+                return i;
+            }
+        }
+        return false;
+    }
+
     window.onSurveyFormSubmit = function() {
-        //check if survey exists
+        const survey = getSurveyFromFrom();
 
+        if (!isSurveyCompletet(survey)) {
+            alert("Nicht alle Felder sind auusgefüllt!")
+            return;
+        }
 
-        alert('lol\nDu würdest nicht drücken Florian');
-        // TODO: Mehrere optionen zur ausgabe als text oder so
+        //load survey file
+        fetch(surveyFileUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error fetching the file: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const files = data.files;
+                const fileContent = files[surveyFileName].content;
+                const jsonData = JSON.parse(fileContent);
+                
+                const doesExist = doesSurveyAlreadyExist(jsonData, survey.question.toLowerCase().trim());
+                if (doesExist !== false) {
+                    const confirmOverwrite = confirm("Eine Umfrage mit diesem Namen ist bereits im Archiv. \nWillst du sie überschreiben?");
+                    if (!confirmOverwrite) {
+                        return; // if survey alreadey existing and user not willingt to overwrite STOP, else continue
+                    }
+                    jsonData.splice(doesExist, 1);
+                }
+
+                console.log(jsonData);
+                jsonData.push(survey);
+
+                saveData(jsonData);
+                //alert('lol\nDu würdest nicht drücken Florian');
+            })
+            .catch(error => {
+                alert("Die Umfragedatei zum Speichern konnte nicht geladen werden!");
+                console.error(error);
+                return;
+            }
+        );
+    }
+
+    window.saveData = function(jsonData) {
+        const updatedGist = {
+            files: {
+                [surveyFileName]: {
+                    content: JSON.stringify(jsonData, null, 4)
+                }
+            }
+        };
+        const token = prompt("Bitte Token zum Speichern eingeben:");
+
+        fetch(surveyFileUrl, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedGist)
+        })
+        .then(response => {
+            console.log(response);
+            if (response.status === 200) {
+                displayStatus("Umfrgage erfolgreich gspeichert", "#056800");
+            } else if (response.status === 401) {
+                displayStatus("Falscher Token", "#a04800");
+            } else {
+                displayStatus("Fehler beim Speichern", "#a00000");
+            }
+        })
+        .catch(error => {
+            console.error('Es gab einen Fehler bei der Anfrage:', error);
+        });
     }
 
 
@@ -66,14 +192,31 @@
                     newContainer.querySelector("input").value = answer.answer;
                     dynamicAnswerContainer.appendChild(newContainer);
                 });
-                insertTemlate(dynamicAnswerContainer, answerTemplate)
+                insertTemlate(dynamicAnswerContainer, answerTemplate);
             }
             catch (error) {
-                alert("Die Umfrage konnte nicht erkannt werden! \n" + error)
+                alert("Die Umfrage konnte nicht erkannt werden! \n" + error);
             }
-            // DELETE BUTTONS REMAIN DISABLED AFTER INSERT!!!!!!!!!!!!!!
-            
         });
+    }
+
+    window.clearSurveyForm = function() {
+        document.getElementById("questionInput").value = "";
+        document.getElementById("maxAnswersInput").value = 1;
+        updateSliderProgress(false);
+        document.getElementById("datetimeInput").value = null;
+        dynamicAnswerContainer.innerHTML = "";
+        insertTemlate(dynamicAnswerContainer, answerTemplate);
+    }
+
+    window.displayStatus = function(text, color) {
+        statusLabel.innerHTML = text;
+        statusLabel.style.color = color;
+        statusLabel.classList.add("visible");
+
+        setTimeout(function() {
+            statusLabel.classList.remove("visible");
+        }, 4000);
     }
 
     
@@ -84,6 +227,15 @@
         loadScript("scripts/userSelector.js");
         
         insertTemlate(dynamicAnswerContainer, answerTemplate);
+
+        clippyText.innerHTML = 
+` Hier können Vergangene Umfragen 
+ins Archiv eingetragen werden
+Das Eintragen ist nur mit Schlüssel möglich
+>Bitte denke daran die Nutzer 
+ zu den Antworten hinzuzufügen
+>Discord Server Emotes gehen leider nicht
+>Das Emotemenü funktioniert nur auf Englisch`;
     }
 
 })();

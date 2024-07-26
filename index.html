@@ -24,6 +24,8 @@
     <div id="archiveSurveyTab" class="tab"></div>
     <div id="createSurveyTab" class="tab"></div>
 
+    <p id="clippy">📎</p>
+    <pre id="clippyText"></pre>
 
 </body>
 </html>
@@ -35,6 +37,12 @@
 //bei knopfdruck onklick für speichern ausführen
 //alle vorhandenen inputs auslesen und daten in classe oder ass. array speichern
 //aus classe oder ass. array in datei fetchen
+
+const gistId = "66117ebbbb1f2520c5db67c632944278";
+const surveyFileUrl = `https://api.github.com/gists/${gistId}`;
+const surveyFileName = "surveys.json";
+
+const clippyText = document.getElementById("clippyText");
 
 // remove old temporary scripts and load new ones
 function loadScript(url) {
@@ -84,19 +92,52 @@ function insertTemlate(parent, template) {
 }
 
 function getCurrentTimeFormatted() {
-        const now = new Date();
-    
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0'); // Monate sind 0-basiert
-        const year = now.getFullYear();
-    
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-    
-        return `${day}.${month}.${year} ${hours}:${minutes}`;
+    const now = new Date();
+
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Monate sind 0-basiert
+    const year = now.getFullYear();
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
+}
+
+function clippyHello(text) {
+    setTimeout(function() {
+        clippyText.classList.add("visible");
+    }, 1000);
+    for (let i = 0; i < text.length; i++) {
+        setTimeout(function() {
+            if (clippyText.innerHTML[0] == " ") {
+                clippyText.classList.remove("visible");
+                return;
+            }
+            clippyText.innerHTML += text[i];
+        }, 1000 + 80 * i);
     }
+    setTimeout(function() {
+        clippyText.innerHTML += "\n<span style='color: dimgrey;'>Version 3.0 (27 Juli) \nVorschläge sind Willkommen :)</span>";
+    }, 1000 + 80 * text.length )
+    setTimeout(function() {
+        clippyText.classList.remove("visible");
+    }, 1000 + 80 * text.length + 3000);
+}
+
+
+//close emojipicker when click. propagationstop is in place
+document.addEventListener("click", (event) => {
+    document.getElementById('emojiPicker')?.classList.remove("visible");
+});
 
 // initialize greeting screen
 loadHTML("tabs/greetingScreen.html", "greetingScreen")
+clippyHello(
+`Hallo,
+ich kann dir Informationen 
+zu den Seiten anzeigen 
+Geh einfach mit der Maus
+über mich.     `);
 
 </script>

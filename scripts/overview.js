@@ -3,44 +3,9 @@
     const fileButton = document.getElementById("fileButton");
     const fileLabel = document.getElementById("fileLabel");
     const fileInput = document.getElementById("fileInput");
+    const surveyContainer = document.getElementById('surveyContainer');
+    const surveyTemplate = document.getElementById("surveyTemplate");
 
-    // Funktion zum Generieren von HTML aus JSON
-    window.jsonToHTML = function(jsonData) {
-        let htmlAusgabe = "";
-    
-        for (let i = 0; i < jsonData.length; i++) {
-            let survey = jsonData[i];
-    
-            htmlAusgabe += '<div class="survey">';
-            htmlAusgabe += `
-                <div>
-                    <h3>${survey.question}</h3>
-                    <p>Umfrage vom: <strong>${survey.date}</strong></p>
-                </div>
-            `;
-    
-            if (survey["max-selections"] == 1) {
-                htmlAusgabe += '<p>Es ist <strong>eine Auswahl</strong> möglich</p>';
-            }
-            else {
-                htmlAusgabe += `<p>Es sind <strong>${survey["max-selections"]} auswahlen</strong> möglich</p>`;
-            }
-            
-            htmlAusgabe += '<ul>';
-            for (let x = 0; x < survey.answers.length; x++) {
-                let answer = survey.answers[x];
-                htmlAusgabe += `
-                    <li>
-                        ${answer.symbol}  ${answer.text} <br>
-                        <span style="padding-left: 28px;">└ <b>${answer.persons.length}</b> Stimmen: ${answer.persons}</span>
-                    </li>
-                    `;
-            }
-            htmlAusgabe += '</ul></div>';
-        }
-    
-        return htmlAusgabe + "<br><br><br><br><br>";
-    }
     
     
     window.onFileSelect = function() {
@@ -49,25 +14,77 @@
         loadSurveys(fileInput.files[0]);
     }
     
+
+    // Funktion zum Generieren von HTML aus JSON
+    window.fillSurveyToContainer = function(jsonData) {
+        for (let i = 0; i < jsonData.length; i++) {
+            setTimeout(function() {
+                let surveyElement = surveyTemplate.content.cloneNode(true);
+                let survey = jsonData[i];
     
-    window.loadSurveys = function(fileName) {
-        fetch(fileName)
+                const questionElement = surveyElement.querySelector(".survey > div > h3");
+                const dateElement = surveyElement.querySelector(".survey > div > p");
+                const maxSelectionsElement = surveyElement.querySelector(".survey > p");
+                const answersListElement = surveyElement.querySelector(".survey > ul");
+                
+                questionElement.innerHTML = survey.question;
+                dateElement.innerHTML = survey.timeStamp;
+        
+                if (survey["maxChoices"] == 1) {
+                    maxSelectionsElement.innerHTML = 'Es ist <strong>eine Auswahl</strong> möglich';
+                }
+                else {
+                    maxSelectionsElement.innerHTML = `Es sind <strong>${survey["maxChoices"]} auswahlen</strong> möglich`;
+                }
+                
+                for (let x = 0; x < survey.answers.length; x++) {
+                    const answerElement = document.createElement("li");
+                    let answer = survey.answers[x];
+    
+                    answerElement.innerHTML = `
+                            ${answer.emote}  ${answer.text} <br>
+                            <span style="padding-left: 28px;">└ <b>${answer.users.length}</b> Stimmen: ${answer.users}</span>
+                        `;
+                    answersListElement.appendChild(answerElement);
+                }
+    
+                surveyContainer.appendChild(surveyElement);
+            }, 100 * i);
+        }
+    }
+
+    window.loadSurveys = function() {
+        fetch(surveyFileUrl)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Error fetching the file: ${response.statusText}`);
                 }
-                return response.text();
+                return response.json();
             })
-            .then(jsonText => {
-                const jsonDaten = JSON.parse(jsonText);
-                document.getElementById('surveyContainer').innerHTML = jsonToHTML(jsonDaten);
-            })
-            .catch(error => console.error('Error loading survey:', error));
-    }
+            .then(data => {
+                const files = data.files;
+                const fileContent = files[surveyFileName].content;
 
-    window.init = function() {
-        loadSurveys('thorsten.json');
+                const jsonData = JSON.parse(fileContent);
+                fillSurveyToContainer(jsonData);
+            })
+            .catch(error => {
+                throw new Error(`Error parsing the file: ${error}`);
+            }
+        );
     }
+        
+    window.init = function() {
+        loadSurveys();
+
+        clippyText.innerHTML = 
+` Hier findest du alle Umfragen vom Autodach.
+Natürlich kann es vorkommen das eine aktuelle Umfrage 
+vom Autodach noch nicht eingetragen wurde.
+Möglichkeiten zu Sortierung, sowie bessere Darstellung 
+werden Folgen, das ist noch ziemlich provisorisch...`;
+    }
+    
 
 })();
 

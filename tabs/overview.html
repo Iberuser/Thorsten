@@ -1,11 +1,23 @@
 <link rel="stylesheet" href="stylesheets/overview.css">
 
-<h3 style="color: orangered; margin-bottom: 120px;">Thorstens Umfragearchiv 0.2.4 --- Die umfragen hier sind erstmal nur zur demo --- Vorschläge sind willkommen</h3>
-
 <div id="surveyContainer"></div>
 
 <div id="fileSelector">
-    <button id="fileButton" onclick="document.getElementById('fileInput').click()">📑 Datei wählen</button>
+    <button id="fileButton" onclick="document.getElementById('fileInput').click()" disabled>📑 Datei wählen</button>
     <input type="file" id="fileInput" accept=".json" onchange="onFileSelect()">
-    <p id="fileLabel">Wähle die <b>thorsten.json</b> Datei aus</p>
+    <p id="fileLabel">Wähle eine Datei aus</p>
 </div>
+
+
+<template id="surveyTemplate">
+    <div class="survey">
+        <div>
+            <h3>Titel</h3>
+            <p>Datum</p>
+        </div>
+        <p>Max auswahlen</p>
+        <ul>
+            Fragen
+        </ul>
+    </div>
+</template>

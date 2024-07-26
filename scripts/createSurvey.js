@@ -54,7 +54,7 @@
         return text;
     }
 
-    window.updatePreview = function(element) { //TODO: ONLY UPDATE CONTENT NOT PIC, NAME AND (TIME)
+    window.updatePreview = function() { //TODO: ONLY UPDATE CONTENT NOT PIC, NAME AND (TIME)
         let html = "";
 
         const question = discordifyText(document.getElementById("questionInput").value);
@@ -94,6 +94,16 @@
         navigator.clipboard.writeText(text);
     }
 
+    window.clearSurveyForm = function() {
+        document.getElementById("questionInput").value = "";
+        document.getElementById("maxAnswersInput").value = 1;
+        updateSliderProgress(false);
+        dynamicAnswerContainer.innerHTML = "";
+        insertTemlate(dynamicAnswerContainer, answerTemplate);
+
+        updatePreview();
+    }
+
 
     window.init = function() {
         // Initialization
@@ -103,6 +113,15 @@
         insertTemlate(dynamicAnswerContainer, answerTemplate);
         document.getElementById("previewTimestamp").innerHTML = getCurrentTimeFormatted();
         updatePreview();
+
+        clippyText.innerHTML = 
+` Hier kannst du Umfragen erstellen
+um sie in Discord einzufügen.
+>Discord Markup wird unterstützt
+>Discord Server Emotes gehen leider nicht
+>Das Emotemenü funktioniert nur auf Englisch
+>Die Reaktionen musst du natürlich auch
+ selbst im Discord hinzufügen`;
     }
 
 })();

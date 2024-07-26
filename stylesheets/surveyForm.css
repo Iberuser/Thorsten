@@ -1,11 +1,18 @@
 /* Buttons */
-#saveSurveyButton {
+#clearSurveyButton {
+    background-color: #6d4949;
+    float: right;
+}
+#clearSurveyButton:hover {
+    background-color: #802222;
+}
+/* #saveSurveyButton {
     transition: opacity 0.5s;
 }
 #saveSurveyButton:hover {
     cursor: wait;
     opacity: 0;
-}
+} */
 
 /* Answer-Input elements */
 .answerElement {
