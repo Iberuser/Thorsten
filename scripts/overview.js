@@ -66,6 +66,7 @@
                 const fileContent = files[surveyFileName].content;
 
                 const jsonData = JSON.parse(fileContent);
+                document.getElementById("loadingCircle").remove(); // remove loading circle
                 fillSurveyToContainer(jsonData);
             })
             .catch(error => {
@@ -76,7 +77,7 @@
         
     window.init = function() {
         loadSurveys();
-
+        
         clippyText.innerHTML = 
 ` Hier findest du alle Umfragen vom Autodach.
 Natürlich kann es vorkommen das eine aktuelle Umfrage 

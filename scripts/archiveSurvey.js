@@ -2,6 +2,7 @@
     const dynamicAnswerContainer = document.getElementById('dynamicAnswerContainer');
     const answerTemplate = document.getElementById('answerTemplate');
     const statusLabel = document.getElementById("statusText");
+    const saveSurveyButton = document.getElementById("saveSurveyButton");
 
     window.onAnswerInput = function(inputField) {
         const isInputFieldEmpty = inputField.value.trim() === '';
@@ -97,7 +98,7 @@
         const survey = getSurveyFromFrom();
 
         if (!isSurveyCompletet(survey)) {
-            alert("Nicht alle Felder sind auusgefüllt!")
+            alert("Nicht alle Felder sind auusgefüllt!");
             return;
         }
 
@@ -132,7 +133,6 @@
             .catch(error => {
                 alert("Die Umfragedatei zum Speichern konnte nicht geladen werden!");
                 console.error(error);
-                return;
             }
         );
     }
@@ -145,7 +145,16 @@
                 }
             }
         };
-        const token = prompt("Bitte Token zum Speichern eingeben:");
+        let token;
+        if (document.cookie.includes("apiToken")) {
+            token = document.cookie.split("; ")
+            .find((row) => row.startsWith("apiToken="))
+            ?.split("=")[1];
+        }
+        else {
+            token = prompt("Bitte Token zum Speichern eingeben:");
+            if (token == null) return; // if user clicks cancel return
+        }
 
         fetch(surveyFileUrl, {
             method: 'PATCH',
@@ -159,7 +168,7 @@
             console.log(response);
             if (response.status === 200) {
                 displayStatus("Umfrgage erfolgreich gspeichert", "#056800");
-            } else if (response.status === 401) {
+                document.cookie = "apiToken=" + token; // write used token to cookie
                 displayStatus("Falscher Token", "#a04800");
             } else {
                 displayStatus("Fehler beim Speichern", "#a00000");
@@ -176,7 +185,6 @@
             try {
                 const parsedMessage = parseDiscordMessage(text);
                 console.log(parsedMessage);
-                //document.getElementById('result').textContent = JSON.stringify(parsedMessage, null, 2);
                 document.getElementById("questionInput").value = parsedMessage.question;
                 document.getElementById("maxAnswersInput").value = parsedMessage.maxChoices;
                 updateSliderProgress(false);
@@ -192,7 +200,9 @@
                     newContainer.querySelector("input").value = answer.answer;
                     dynamicAnswerContainer.appendChild(newContainer);
                 });
+
                 insertTemlate(dynamicAnswerContainer, answerTemplate);
+                dynamicAnswerContainer.dispatchEvent(new Event("refresh")); //refresh user selector
             }
             catch (error) {
                 alert("Die Umfrage konnte nicht erkannt werden! \n" + error);
@@ -206,7 +216,9 @@
         updateSliderProgress(false);
         document.getElementById("datetimeInput").value = null;
         dynamicAnswerContainer.innerHTML = "";
+
         insertTemlate(dynamicAnswerContainer, answerTemplate);
+        dynamicAnswerContainer.dispatchEvent(new Event("refresh")); //refresh user selector
     }
 
     window.displayStatus = function(text, color) {

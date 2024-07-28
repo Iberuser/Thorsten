@@ -5,7 +5,7 @@ body {
           #181818e6, 
           #181818e6
         ),
-        url("background.webp");
+        url("img/background.webp");
         /* url('data:image/webp;base64,REMOVED-LOL'); */
     background-size: cover;
     background-attachment: fixed;
@@ -19,9 +19,6 @@ body {
 #archiveSurveyTab, #createSurveyTab {
     width: 70%;
     margin: 0 auto;
-}
-.tabs {
-    /*TODO: HIER ANIMATION ZUM EINBLENDEN */
 }
 
 /* Links */
@@ -110,7 +107,7 @@ nav > a:hover {
     bottom: 0;
     right: 0;
     margin: 16px;
-    font-size: 3em;
+    width: 50px;
 }
 #clippy:hover {
     cursor: default;
@@ -142,9 +139,8 @@ nav > a:hover {
     100% {opacity: 1;}
 }
 
-@keyframes slideIn {
-    0% {top: 200px;}
-    100% {top: 0;}
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes clippy {

@@ -52,8 +52,8 @@
     <div onclick="event.stopPropagation();">
         <div style="position: relative;">
             <button id="userSelectorClose" onclick="closeUserSelector()">x</button>
-            <input type="text" placeholder="Namen eingeben oder suchen" oninput="onUserSelectorInput(this.value)" onkeydown="userSelectorInputConfirm(event)" id="userSelectorInput">
-            <button onclick="userSelectorInputConfirm()">✔</button>
+            <input type="text" placeholder="Namen eingeben oder suchen" oninput="onUserSelectorInput()" onkeydown="onUserSelectorEnter(event)" id="userSelectorInput">
+            <button onclick="userSelectorSelect()">✔</button>
         </div>
         <table id="userSelectorList"> </table>
     </div>
@@ -68,7 +68,7 @@
         <input type="text" oninput="onAnswerInput(this)">
         <button onclick="deleteAnswer(this)" tabindex="-1" disabled>❌</button>
         <div class="answerUserList">
-            <button onclick="openUserPopup(this);">+</button>
+            <button onclick="openUserSelector(this);">+</button>
         </div>
     </div>
 </template>

@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thorstens Umfragen</title>
-    <link rel="shortcut icon" href="icon.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="img/icon.webp" type="image/x-icon">
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preload" as="image" href="img/loadingCircle.png">
 </head>
 
 <body>
@@ -24,20 +26,27 @@
     <div id="archiveSurveyTab" class="tab"></div>
     <div id="createSurveyTab" class="tab"></div>
 
-    <p id="clippy">📎</p>
+    <img id="clippy" src="img/clippy.png">
     <pre id="clippyText"></pre>
 
 </body>
 </html>
 
+<style>
+/* early needed style rules */
+#loadingCircle {
+    position: absolute;
+    top: 40vh;
+    left: 45vw;;
+    width: 10vw;
+    margin: 0 auto;
+    animation: rotate 1s infinite linear;
+}
+
+</style>
 
 
 <script>
-//speichervorgang:
-//bei knopfdruck onklick für speichern ausführen
-//alle vorhandenen inputs auslesen und daten in classe oder ass. array speichern
-//aus classe oder ass. array in datei fetchen
-
 const gistId = "66117ebbbb1f2520c5db67c632944278";
 const surveyFileUrl = `https://api.github.com/gists/${gistId}`;
 const surveyFileName = "surveys.json";
