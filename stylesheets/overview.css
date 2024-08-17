@@ -23,16 +23,17 @@
     position: relative;
     animation: slideIn 0.5s cubic-bezier(0.1, 0, 0.0, 1.0);
     border-bottom: 2px solid gray;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
 }
 .survey p {
     display: inline-block;
 }
-.survey > :first-child {
+.survey > div {
     display: flex;
     justify-content: space-between;
 }
-.survey > :first-child > p {
+.survey > div:first-child > p {
     color: #AAAAAA;
     text-align: right;
 }
@@ -50,11 +51,32 @@
 .survey li span {
     color: #aaaaaa;
 }
+.survey canvas {
+    
+}
 
 
 /* Survey container */
 #surveyContainer {
     margin-bottom: 120px;
+}
+
+/* charts */
+.pieChart {
+    display: inline-block;
+    width: 160px;
+}
+
+.userImages {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.userImages > img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 2px;
 }
 
 

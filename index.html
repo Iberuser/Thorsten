@@ -7,7 +7,11 @@
     <title>Thorstens Umfragen</title>
     <link rel="shortcut icon" href="img/icon.webp" type="image/x-icon">
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.css">
+    <script src=""></script> <!--lokales script einbinden-->
 
     <link rel="preload" as="image" href="img/loadingCircle.png">
 </head>
@@ -19,6 +23,7 @@
         <a id="archiveSurveyTabButton" class="tabButton" onclick="onTabSelect('archiveSurvey');">✒️ Umfrage eintragen</a>
         <a id="createSurveyTabButton" class="tabButton" onclick="onTabSelect('createSurvey');">✨ Umfrage erstellen (Ohne AI)</a>
     </nav>
+    <p id="flag">twemoji test 🇩🇪 🇺🇸 🇫🇷</p>
 
     <div id="greetingScreen"></div>
     <div id="overviewTab" class="tab"></div>
@@ -26,7 +31,7 @@
     <div id="archiveSurveyTab" class="tab"></div>
     <div id="createSurveyTab" class="tab"></div>
 
-    <img id="clippy" src="img/clippy.png">
+    <img id="clippy" src="img/clippy.png" alt="">
     <pre id="clippyText"></pre>
 
 </body>
@@ -52,6 +57,34 @@ const surveyFileUrl = `https://api.github.com/gists/${gistId}`;
 const surveyFileName = "surveys.json";
 
 const clippyText = document.getElementById("clippyText");
+
+const userList = [
+    { name: "Marju", fullname: "Marju", image: "marju.jpg" },
+    { name: "Maggus", fullname: "Maggus [mag] Magnum", image: "maggus.jpg" },
+    { name: "Husti", fullname: "Hustiii" },
+    { name: "Silas", fullname: "Silas/Salamander", image: "silas.png"},
+    { name: "Justus", fullname: "Justus/Rufus/Iberus", image: "justus.png" },
+    { name: "Lukas", fullname: "Lukas/Luggas/Lang", image: "lukas.png" },
+    { name: "Turtle", fullname: "Turtle" },
+    { name: "Janni", fullname: "Janni", image: "janni.jpg" },
+    { name: "Schatten", fullname: "Schatten/Nora", image: "schatten.jpg" },
+    { name: "Geiche", fullname: "Geiche/Geike", image: "geiche.png" },
+    { name: "Kyo", fullname: "Kyo" }, // maria ist deprecated
+    { name: "Sandro", fullname: "Sandro/Sandrus", image: "sandro.png" },
+    { name: "Alvin", fullname: "Alvin/Scybouns", image: "alvin.jpg" },
+    { name: "Nev", fullname: "Nev" },
+    { name: "Technic", fullname: "TechniccGaming_F" },
+    { name: "Arthur", fullname: "Arthur ✝️2023" }
+    // Potentiell, Avery
+    // Max und toadsie rausgelassen
+    // Thorsten werde nicht genannt
+]
+
+window.onload = function() {    
+    twemoji.parse(document.body, 
+            {folder: 'svg', ext: '.svg'} 
+    );
+}
 
 // remove old temporary scripts and load new ones
 function loadScript(url) {

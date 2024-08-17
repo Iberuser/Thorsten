@@ -5,27 +5,7 @@
     const userSelectorInput = document.getElementById("userSelectorInput");
     let addedUsers = [];
 
-    const userList = [
-        { name: "Marju", fullname: "Marju", image: "marju.jpg" },
-        { name: "Maggus", fullname: "Maggus [mag] Magnum", image: "maggus.jpg" },
-        { name: "Husti", fullname: "Hustiii" },
-        { name: "Silas", fullname: "Silas/Salamander", image: "silas.png"},
-        { name: "Justus", fullname: "Justus/Rufus/Iberus", image: "justus.png" },
-        { name: "Lukas", fullname: "Lukas/Luggas/Lang", image: "lukas.png" },
-        { name: "Turtle", fullname: "Turtle" },
-        { name: "Janni", fullname: "Janni", image: "janni.jpg" },
-        { name: "Schatten", fullname: "Schatten/Nora", image: "schatten.jpg" },
-        { name: "Geiche", fullname: "Geiche/Geike", image: "geiche.png" },
-        { name: "Kyo", fullname: "Kyo" }, // maria ist deprecated
-        { name: "Sandro", fullname: "Sandro/Sandrus", image: "sandro.png" },
-        { name: "Alvin", fullname: "Alvin/Scybouns", image: "alvin.jpg" },
-        { name: "Nev", fullname: "Nev" },
-        { name: "Technic", fullname: "TechniccGaming_F" },
-        { name: "Arthur", fullname: "Arthur ✝️2023" }
-        // Potentiell, Avery
-        // Max und toadsie rausgelassen
-        // Thorsten werde nicht genannt
-    ]
+    //userlist now in index.html
 
 
     // userlist add and remove
